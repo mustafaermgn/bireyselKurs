@@ -83,10 +83,13 @@ async function fetchFromFirebase<K extends keyof typeof defaultData>(key: K) {
 // Save data to Firestore
 async function saveToFirebase<K extends keyof typeof defaultData>(key: K, data: typeof defaultData[K]) {
   try {
+    console.log(`💾 ${key} Firebase'e kaydediliyor...`);
+    
     if (key === 'ayarlar') {
       // Save ayarlar as a single document
       const docRef = doc(db, 'ayarlar', 'config');
       await setDoc(docRef, data);
+      console.log(`✅ ${key} başarıyla kaydedildi`);
     } else {
       // Save collections
       const batch = writeBatch(db);
@@ -105,9 +108,19 @@ async function saveToFirebase<K extends keyof typeof defaultData>(key: K, data: 
       });
 
       await batch.commit();
+      console.log(`✅ ${key} başarıyla kaydedildi (${(data as any[]).length} kayıt)`);
     }
   } catch (error) {
-    console.error(`Error saving ${key} to Firebase:`, error);
+    console.error(`❌ ${key} kaydedilirken hata:`, error);
+    if (error instanceof Error) {
+      console.error('Hata mesajı:', error.message);
+      console.error('Hata kodu:', (error as any).code);
+      
+      // Eğer auth hatası ise, kullanıcıyı uyar
+      if ((error as any).code === 'permission-denied') {
+        console.error('⚠️ GİRİŞ YAPMANIZ GEREKIYOR! Admin paneline girin ve giriş yapın.');
+      }
+    }
   }
 }
 
@@ -126,11 +139,11 @@ export function useAppStore<K extends keyof typeof defaultData>(key: K) {
     loadData();
   }, [key]);
 
-  const updateData = (newData: typeof defaultData[K]) => {
+  const updateData = async (newData: typeof defaultData[K]) => {
     setData(newData);
     // Save to both Firebase and localStorage for offline access
     localStorage.setItem('bireyselkurs_' + key as string, JSON.stringify(newData));
-    saveToFirebase(key, newData);
+    await saveToFirebase(key, newData);
     window.dispatchEvent(new Event('store-updated-' + key as string));
   };
 
