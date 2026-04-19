@@ -23,20 +23,18 @@ export default function KadroPage() {
             Öğrencilerimizin başarısı için gece gündüz demeden çalışan, tecrübeli ve dinamik eğitim kadromuzla tanışın.
           </p>
           
-          <div className="grid grid-cols-4 grid-cols-mobile-2">
+          <div className="kadro-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '30px' }}>
             {isLoaded && kadro.length > 0 ? kadro.map((k: any) => (
-              <div key={k.id} className="card" style={{ textAlign: 'center', overflow: 'hidden', borderRadius: '16px', border: 'none', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
-                <div style={{ height: '240px', backgroundColor: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '5rem', overflow: 'hidden' }}>
+              <div key={k.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '16px 10px' }}>
+                <div style={{ width: '110px', height: '110px', borderRadius: '50%', overflow: 'hidden', border: '4px solid var(--accent-teal)', boxShadow: '0 4px 16px rgba(45,163,151,0.2)', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#e2e8f0', fontSize: '3rem' }}>
                   {k.photo ? (
                     <img src={k.photo} alt={k.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
                     k.avatar
                   )}
                 </div>
-                <div style={{ padding: '25px 20px' }}>
-                  <h4 style={{ margin: '0 0 10px 0', fontSize: '1.25rem', color: 'var(--heading-color)', fontWeight: '800' }}>{k.name}</h4>
-                  <p style={{ color: 'var(--primary-color)', fontSize: '1rem', fontWeight: 'bold', margin: 0 }}>{k.branch}</p>
-                </div>
+                <h4 style={{ margin: '0 0 6px 0', fontSize: '1.05rem', color: 'var(--heading-color)', fontWeight: '800' }}>{k.name}</h4>
+                <p style={{ color: 'var(--primary-color)', fontSize: '0.9rem', fontWeight: '600', margin: 0 }}>{k.branch}</p>
               </div>
             )) : (
               <p style={{ gridColumn: '1 / -1' }}>{isLoaded ? 'Kadro bilgisi bulunamadı.' : 'Yükleniyor...'}</p>

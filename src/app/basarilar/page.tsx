@@ -90,21 +90,21 @@ export default function BasarilarPage() {
                   <div style={{ height: '2px', background: '#e2e8f0', flex: 1 }}></div>
                 </div>
 
-                <div className="grid grid-cols-4 grid-cols-mobile-2" style={{ gap: '30px' }}>
+                <div className="grid grid-cols-4 grid-cols-mobile-4" style={{ gap: '20px' }}>
                   {groupedBasarilar[year]?.map((b: any) => (
-                    <div key={b.id} className="card" style={{ padding: '30px 20px', textAlign: 'center', borderRadius: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.04)', border: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <div style={{ width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#f8fafc', marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', border: '4px solid white', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
+                    <div key={b.id} style={{ padding: '5px 2px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <div style={{ width: '60px', height: '60px', borderRadius: '50%', backgroundColor: '#f8fafc', marginBottom: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', border: '2px solid white', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
                         {b.photo ? (
                           <img src={b.photo} alt={b.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                         ) : (
-                          <span style={{ fontSize: '3.5rem' }}>🎓</span>
+                          <span style={{ fontSize: '2rem' }}>🎓</span>
                         )}
                       </div>
-                      <h4 style={{ margin: '0 0 10px 0', fontSize: '1.25rem', color: 'var(--heading-color)', fontWeight: '800' }}>{b.name}</h4>
-                      <span style={{ display: 'inline-block', padding: '5px 12px', background: 'rgba(241, 97, 1, 0.1)', color: 'var(--primary-color)', borderRadius: '15px', fontSize: '0.85rem', fontWeight: 'bold', marginBottom: '15px' }}>
+                      <h4 style={{ margin: '0 0 3px 0', fontSize: '0.85rem', color: 'var(--heading-color)', fontWeight: '800' }}>{b.name}</h4>
+                      <span style={{ display: 'inline-block', padding: '2px 6px', background: 'rgba(241, 97, 1, 0.1)', color: 'var(--primary-color)', borderRadius: '8px', fontSize: '0.6rem', fontWeight: 'bold', marginBottom: '5px' }}>
                         {b.exam}
                       </span>
-                      <p style={{ margin: 0, fontSize: '0.95rem', color: '#64748b', lineHeight: '1.5' }}>{b.result}</p>
+                      <p style={{ margin: 0, fontSize: '0.7rem', color: '#64748b', lineHeight: '1.3' }}>{b.result}</p>
                     </div>
                   ))}
                 </div>

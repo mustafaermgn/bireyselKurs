@@ -276,6 +276,39 @@ export default function Ayarlar() {
             <textarea name="ctaAciklama" value={ayarlar?.ctaAciklama || ''} onChange={handleChange} style={{...inputStyle, height: '80px'}} placeholder="Erken kayıt avantajlarından..." />
           </div>
 
+          <div style={{ marginBottom: '30px', background: '#f8fafc', padding: '20px', borderRadius: '8px' }}>
+            <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', color: '#334155' }}>Kurum Bilgileri & Özellikler</h3>
+            
+            <label style={labelStyle}>Kurum Başlığı</label>
+            <input type="text" name="kurumBaslik" value={ayarlar?.kurumBaslik || ''} onChange={handleChange} style={inputStyle} />
+            
+            <label style={labelStyle}>Kurum Tanıtım Görseli</label>
+            <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', marginBottom: '20px', background: 'white', padding: '15px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+              <div style={{ width: '150px', height: '100px', borderRadius: '8px', overflow: 'hidden', backgroundColor: '#f8fafc', border: '1px solid #cbd5e1' }}>
+                {ayarlar?.kurumGorsel ? (
+                  <img src={ayarlar.kurumGorsel} alt="Kurum Görsel" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                ) : (
+                  <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '12px' }}>Görsel Yok</div>
+                )}
+              </div>
+              <div style={{ flex: 1 }}>
+                <ImageUploader 
+                  onImageUpload={(url) => {
+                    updateData({ ...ayarlar, kurumGorsel: url });
+                    setSuccessMessage('Kurum görseli güncellendi!');
+                    setTimeout(() => setSuccessMessage(''), 3000);
+                  }}
+                  folder="kurum-tanitim"
+                  label="Kurum Görseli Değiştir"
+                  currentImage={ayarlar?.kurumGorsel}
+                />
+              </div>
+            </div>
+
+            <label style={labelStyle}>Kurum Genel Açıklama</label>
+            <textarea name="kurumAciklama" value={ayarlar?.kurumAciklama || ''} onChange={handleChange} style={{...inputStyle, height: '200px'}} />
+          </div>
+
           <button onClick={saveTextChanges} className="btn btn-primary" style={{ width: '100%', padding: '15px', fontSize: '1.1rem' }}>
             💾 Metin Değişikliklerini Kaydet ve Uygula
           </button>

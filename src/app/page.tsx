@@ -15,42 +15,11 @@ export default function Home() {
   const [showSplash, setShowSplash] = useState(true);
   const [showCampaignPopup, setShowCampaignPopup] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
-  const successCarouselRef = useRef<HTMLDivElement>(null);
   const newsCarouselRef = useRef<HTMLDivElement>(null);
 
-  // News auto-scroll cycle
-  useEffect(() => {
-    if (blogs && blogs.length > 1) {
-      const interval = setInterval(() => {
-        if (newsCarouselRef.current) {
-          const { scrollLeft, clientWidth, scrollWidth } = newsCarouselRef.current;
-          if (Math.ceil(scrollLeft + clientWidth) >= scrollWidth - 20) {
-            newsCarouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-          } else {
-            newsCarouselRef.current.scrollBy({ left: 350, behavior: 'smooth' });
-          }
-        }
-      }, 4000);
-      return () => clearInterval(interval);
-    }
-  }, [blogs]);
 
-  // Success auto-scroll cycle
-  useEffect(() => {
-    if (basarilar && basarilar.length > 1) {
-      const interval = setInterval(() => {
-        if (successCarouselRef.current) {
-          const { scrollLeft, clientWidth, scrollWidth } = successCarouselRef.current;
-          if (Math.ceil(scrollLeft + clientWidth) >= scrollWidth - 20) {
-            successCarouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-          } else {
-            successCarouselRef.current.scrollBy({ left: 320, behavior: 'smooth' });
-          }
-        }
-      }, 3000);
-      return () => clearInterval(interval);
-    }
-  }, [basarilar]);
+
+
 
 
   // Background Slider States
@@ -274,17 +243,13 @@ export default function Home() {
                 <div className="hero-image-circle" style={{ overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'center' }}>
                   <div
                     ref={carouselRef}
-                    onWheel={(e) => e.preventDefault()}
-                    onTouchMove={(e) => e.preventDefault()}
                     style={{
                       display: 'flex',
                       width: '100%',
                       height: '100%',
-                      overflowX: 'auto',
-                      scrollSnapType: 'x mandatory',
-                      scrollbarWidth: 'none',
-                      msOverflowStyle: 'none',
-                      WebkitOverflowScrolling: 'touch'
+                      overflowX: 'hidden',
+                      pointerEvents: 'none',
+                      userSelect: 'none'
                     }}
                   >
                     <style dangerouslySetInnerHTML={{
@@ -390,6 +355,42 @@ export default function Home() {
 
 
 
+        {/* Events / Posts Section */}
+        {blogs && blogs.length > 0 && (
+          <section className="bg-alt" style={{ padding: '60px 0', borderTop: '1px solid #f1f5f9' }}>
+            <div className="container">
+              <div className="text-center" style={{ marginBottom: '40px' }}>
+                <span className="section-subtitle" style={{ background: 'white', display: 'inline-block', padding: '5px 15px', borderRadius: '20px', boxShadow: 'var(--shadow-sm)' }}>HABERLER</span>
+              </div>
+              <div
+                ref={newsCarouselRef}
+                className="news-container"
+              >
+                {blogs.map((b: any) => (
+                  <Link key={b.id} href={`/haber/${b.id}`} className="news-item" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <div className="card course-card" style={{ display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 0, border: 'none', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.04)', cursor: 'pointer', margin: '0 10px' }}>
+                      <div style={{ height: '220px', backgroundColor: '#e2e8f0', position: 'relative', overflow: 'hidden' }}>
+                        {b.photo ? (
+                          <img src={b.photo} alt={b.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
+                        ) : (
+                          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)' }}>
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                          </div>
+                        )}
+                        <div style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(255,255,255,0.95)', padding: '6px 14px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--primary-color)', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>{b.date}</div>
+                      </div>
+                      <div style={{ padding: '35px 30px', flex: 1, display: 'flex', flexDirection: 'column', background: 'white' }}>
+                        <h4 style={{ fontSize: '1.3rem', marginBottom: '15px', color: 'var(--heading-color)', fontWeight: '800', lineHeight: '1.4', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{b.title}</h4>
+                        <p style={{ margin: 0, color: '#64748b', fontSize: '0.95rem', lineHeight: '1.6', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{b.content}</p>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Courses Section - EĞİTİM PROGRAMLARI */}
         <section className="bg-alt" style={{ padding: '60px 0', borderTop: '1px solid #f1f5f9' }}>
           <div className="container">
@@ -397,7 +398,7 @@ export default function Home() {
               <span className="section-subtitle" style={{ background: 'white', display: 'inline-block', padding: '10px 25px', borderRadius: '30px', boxShadow: 'var(--shadow-sm)', color: 'var(--primary-color)', fontSize: '1.2rem', fontWeight: '800', letterSpacing: '1px' }}>EĞİTİM PROGRAMLARI</span>
             </div>
 
-            <div className="grid grid-cols-4" style={{ gap: '30px', paddingBottom: '20px' }}>
+            <div className="grid grid-cols-4 grid-cols-mobile-1" style={{ gap: '30px', paddingBottom: '20px' }}>
 
               {/* Card 1: LGS */}
               <div className="card course-card" style={{ padding: '40px 30px', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', border: 'none', background: 'white', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
@@ -496,88 +497,128 @@ export default function Home() {
 
                 <div style={{ flex: 1, position: 'relative', zIndex: 2 }}>
                   <h4 style={{ fontSize: '1.4rem', marginBottom: '15px', fontWeight: '800' }}>
-                    <Link href="/kurslar/ara-sinif" style={{ color: 'var(--heading-color)', textDecoration: 'none' }}>9. 10. 11. Sınıflar</Link>
+                    <Link href="/kurslar/ara-siniflar" style={{ color: 'var(--heading-color)', textDecoration: 'none' }}>Ara Sınıflar</Link>
                   </h4>
                   <p style={{ color: '#64748b', fontSize: '1rem', lineHeight: '1.6', marginBottom: '20px' }}>
-                    Okul derslerine destek ve YKS&apos;ye güçlü bir temel için özel ara sınıf etüt programları.
+                    Okul derslerine takviye ve temelden sınav hazırlığı (9, 10 ve 11. Sınıf öğrencileri için özel).
                   </p>
                 </div>
 
                 <div style={{ position: 'relative', zIndex: 2, marginTop: 'auto', paddingTop: '20px', borderTop: '1px solid #f1f5f9' }}>
-                  <Link href="/kurslar/ara-sinif" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--accent-red)', fontWeight: '700', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.5px' }} className="course-link">
+                  <Link href="/kurslar/ara-siniflar" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', color: 'var(--accent-red)', fontWeight: '700', fontSize: '0.95rem', textTransform: 'uppercase', letterSpacing: '0.5px' }} className="course-link">
                     Ayrıntılar
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                   </Link>
                 </div>
               </div>
-
             </div>
           </div>
         </section>
 
-        {/* Events / Posts Section */}
-        {blogs && blogs.length > 0 && (
-          <section className="bg-alt" style={{ padding: '60px 0' }}>
+        {/* Kurum Bilgileri Bölümü - Profesyonel Masaüstü Görünümü */}
+        {ayarlarLoaded && ayarlar.kurumBaslik && (
+          <section className="section bg-white" style={{ padding: '100px 0', overflow: 'hidden' }}>
             <div className="container">
-              <div className="text-center" style={{ marginBottom: '40px' }}>
-                <span className="section-subtitle" style={{ background: 'white', display: 'inline-block', padding: '5px 15px', borderRadius: '20px', boxShadow: 'var(--shadow-sm)' }}>HABERLER</span>
-
-              </div>
-
-              <div 
-                ref={newsCarouselRef}
-                style={{ 
-                  display: 'flex', 
-                  gap: '30px', 
-                  overflowX: 'auto', 
-                  scrollSnapType: 'x mandatory', 
-                  scrollbarWidth: 'none', 
-                  msOverflowStyle: 'none', 
-                  WebkitOverflowScrolling: 'touch',
-                  paddingBottom: '20px',
-                  margin: '0 -15px',
-                  padding: '10px 15px 30px 15px'
-                }}
-              >
-                {blogs.map((b: any) => (
-                  <div key={b.id} className="card course-card" style={{ flex: '0 0 320px', scrollSnapAlign: 'start', display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 0, border: 'none', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
-                    <div style={{ height: '220px', backgroundColor: '#e2e8f0', position: 'relative', overflow: 'hidden' }}>
-                      {b.photo ? (
-                        <img src={b.photo} alt={b.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
-                      ) : (
-                        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)' }}>
-                          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                            <polyline points="21 15 16 10 5 21"></polyline>
-                          </svg>
-                        </div>
-                      )}
-                      <div style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(255,255,255,0.95)', padding: '6px 14px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--primary-color)', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
-                        {b.date}
-                      </div>
-                    </div>
-                    <div style={{ padding: '35px 30px', flex: 1, display: 'flex', flexDirection: 'column', background: 'white' }}>
-                      <h4 style={{ fontSize: '1.3rem', marginBottom: '15px', color: 'var(--heading-color)', fontWeight: '800', lineHeight: '1.4', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{b.title}</h4>
-                      <p style={{
-                        margin: 0,
-                        color: '#64748b',
-                        fontSize: '0.95rem',
-                        lineHeight: '1.6',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden'
-                      }}>
-                        {b.content}
-                      </p>
+              <div className="grid grid-cols-2 grid-cols-mobile-1" style={{ gap: '80px', alignItems: 'center' }}>
+                {/* Sol Taraf - Görsel ve Dekorasyon */}
+                <div style={{ position: 'relative' }}>
+                  <div style={{ 
+                    position: 'absolute', 
+                    top: '-40px', 
+                    left: '-40px', 
+                    width: '300px', 
+                    height: '300px', 
+                    background: 'var(--primary-color)', 
+                    opacity: '0.05', 
+                    borderRadius: '50%',
+                    zIndex: 1
+                  }}></div>
+                  <div style={{ 
+                    position: 'relative', 
+                    zIndex: 2,
+                    borderRadius: '40px',
+                    overflow: 'hidden',
+                    boxShadow: '0 30px 60px rgba(1, 34, 55, 0.12)',
+                    border: '8px solid white'
+                  }}>
+                    <img 
+                      src={ayarlar.kurumGorsel || "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop"} 
+                      alt="Kurumumuz" 
+                      style={{ width: '100%', height: 'auto', display: 'block' }} 
+                    />
+                  </div>
+                  {/* Başarı Rozeti Deneyimi */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '-30px',
+                    right: '-30px',
+                    background: 'white',
+                    padding: '25px',
+                    borderRadius: '24px',
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                    zIndex: 3,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '15px'
+                  }} className="mobile-hide">
+                    <div style={{ width: '50px', height: '50px', background: 'var(--primary-color)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1.5rem' }}>🏆</div>
+                    <div>
+                      <h5 style={{ margin: 0, fontSize: '1.1rem', fontWeight: '800', color: 'var(--heading-color)' }}>25+ Yıllık</h5>
+                      <p style={{ margin: 0, fontSize: '0.9rem', color: '#64748b' }}>Eğitim Tecrübesi</p>
                     </div>
                   </div>
-                ))}
+                </div>
+
+                {/* Sağ Taraf - İçerik */}
+                <div style={{ textAlign: 'left' }} className="mobile-center">
+                  <span className="section-subtitle" style={{ 
+                    background: 'rgba(241, 97, 1, 0.08)', 
+                    display: 'inline-block', 
+                    padding: '8px 20px', 
+                    borderRadius: '30px', 
+                    color: 'var(--primary-color)', 
+                    fontSize: '0.95rem', 
+                    fontWeight: '800', 
+                    letterSpacing: '1.5px',
+                    textTransform: 'uppercase'
+                  }}>KURUMUMUZU TANIYIN</span>
+                  
+                  <h2 style={{ 
+                    marginTop: '20px', 
+                    marginBottom: '25px', 
+                    fontSize: '3.2rem', 
+                    color: 'var(--heading-color)', 
+                    fontWeight: '800', 
+                    lineHeight: '1.1',
+                    letterSpacing: '-1px'
+                  }}>{ayarlar.kurumBaslik}</h2>
+                  
+                  <div style={{ width: '60px', height: '5px', background: 'var(--primary-color)', marginBottom: '35px', borderRadius: '3px' }}></div>
+                  
+                  <p style={{ 
+                    fontSize: '1.25rem', 
+                    color: '#475569', 
+                    lineHeight: '1.8', 
+                    margin: 0, 
+                    whiteSpace: 'pre-line',
+                    textAlign: 'justify'
+                  }}>
+                    {ayarlar.kurumAciklama}
+                  </p>
+
+                  <div style={{ marginTop: '40px', display: 'flex', gap: '20px' }} className="mobile-center">
+                    <Link href="/iletisim" className="btn btn-primary" style={{ padding: '15px 35px', borderRadius: '15px' }}>Bize Katılın</Link>
+                    <Link href="/hakkimizda" style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--heading-color)', fontWeight: '700', textDecoration: 'none' }}>
+                      Detaylı Bilgi
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
         )}
+
 
         {/* Gurur Tablomuz (Başarılarımız) */}
         {basarilar && basarilar.length > 0 && (
@@ -589,57 +630,36 @@ export default function Home() {
               </div>
 
               <div 
-                ref={successCarouselRef}
+                className="grid grid-cols-4 grid-cols-mobile-4"
                 style={{ 
-                  display: 'flex', 
-                  gap: '25px', 
-                  overflowX: 'auto', 
-                  scrollSnapType: 'x mandatory', 
-                  scrollbarWidth: 'none', 
-                  msOverflowStyle: 'none', 
-                  WebkitOverflowScrolling: 'touch',
-                  paddingBottom: '20px',
-                  margin: '0 -15px',
-                  padding: '10px 15px 30px 15px'
+                  gap: '30px',
+                  padding: '20px 0'
                 }}
               >
-                <style dangerouslySetInnerHTML={{ __html: `div::-webkit-scrollbar { display: none; }` }} />
-                {basarilar.map((b: any) => (
-                  <div key={b.id} className="card" style={{ flex: '0 0 280px', scrollSnapAlign: 'start', padding: '30px 20px', textAlign: 'center', borderRadius: '20px', boxShadow: '0 10px 30px rgba(0,0,0,0.04)', border: '1px solid #f1f5f9', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div style={{ width: '100px', height: '100px', borderRadius: '50%', backgroundColor: '#f8fafc', marginBottom: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', border: '4px solid white', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' }}>
-                      {b.photo ? (
-                        <img src={b.photo} alt={b.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      ) : (
-                        <span style={{ fontSize: '3rem' }}>🎓</span>
-                      )}
+                {basarilar.slice(0, 4).map((b: any) => (
+                  <Link key={b.id} href="/basarilar" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <div className="success-card-item">
+                      <div className="success-card-img">
+                        {b.photo ? (
+                          <img src={b.photo} alt={b.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        ) : (
+                          <span style={{ fontSize: '2rem' }}>🎓</span>
+                        )}
+                      </div>
+                      <h4 className="success-card-name">{b.name}</h4>
+                      <span className="success-card-exam">
+                        {b.exam}
+                      </span>
+                      <p className="success-card-result">{b.result}</p>
                     </div>
-                    <h4 style={{ margin: '0 0 10px 0', fontSize: '1.25rem', color: 'var(--heading-color)', fontWeight: '800' }}>{b.name}</h4>
-                    <span style={{ display: 'inline-block', padding: '5px 12px', background: 'rgba(241, 97, 1, 0.1)', color: 'var(--primary-color)', borderRadius: '15px', fontSize: '0.85rem', fontWeight: 'bold', marginBottom: '15px' }}>
-                      {b.exam} - {b.year}
-                    </span>
-                    <p style={{ margin: 0, fontSize: '0.95rem', color: '#64748b', lineHeight: '1.5' }}>{b.result}</p>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
           </section>
         )}
 
-        {/* CTA Section */}
-        <section className="bg-navy" style={{ padding: '80px 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-          <div className="floating-shape" style={{ position: 'absolute', left: '10%', top: '20%', width: '120px', height: '120px', borderRadius: '50%', background: 'var(--primary-color)', opacity: '0.15', filter: 'blur(20px)' }}></div>
-          <div className="floating-shape" style={{ position: 'absolute', right: '10%', bottom: '20%', width: '180px', height: '180px', borderRadius: '50%', background: 'var(--accent-teal)', opacity: '0.15', filter: 'blur(30px)', animationDelay: '3s' }}></div>
-
-          <div className="container" style={{ position: 'relative', zIndex: 10 }}>
-            <h2 style={{ fontSize: '3.2rem', marginBottom: '25px', fontWeight: '800' }}>{ayarlar?.ctaBaslik || 'Kaydınızı Şimdi Yaptırın'}</h2>
-            <p style={{ fontSize: '1.3rem', marginBottom: '45px', color: 'rgba(255,255,255,0.85)', maxWidth: '750px', margin: '0 auto 40px auto', lineHeight: '1.8' }}>
-              {ayarlar?.ctaAciklama || 'Erken kayıt avantajlarından yararlanmak ve sınırlı kontenjanımızda yerinizi ayırtmak için hemen iletişime geçin.'}
-            </p>
-            <button onClick={() => window.dispatchEvent(new Event('open-application-modal'))} className="btn btn-primary" style={{ padding: '18px 45px', fontSize: '18px', boxShadow: '0 8px 25px rgba(241,97,1,0.4)', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
-              Ön Başvuru Formu
-            </button>
-          </div>
-        </section>
+        {/* CTA - layout.tsx içindeki CallToAction bileşeni tüm sayfalarda gösterilir */}
       </div>
     </>
   );

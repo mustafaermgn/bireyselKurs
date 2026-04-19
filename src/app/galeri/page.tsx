@@ -1,4 +1,5 @@
 "use client";
+import Link from 'next/link';
 import { useAppStore } from '@/lib/store';
 
 export default function Galeri() {
@@ -18,12 +19,14 @@ export default function Galeri() {
         ) : (
           <div className="grid grid-cols-3 grid-cols-mobile-2">
             {medya.map((item: any) => (
-              <div key={item.id} className="card" style={{ height: '300px', overflow: 'hidden', position: 'relative' }}>
-                <img src={item.url} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'rgba(0,0,0,0.7)', color: 'white', padding: '10px', textAlign: 'center' }}>
-                  {item.description || item.name}
+              <Link key={item.id} href={`/galeri/${item.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <div className="card" style={{ height: '300px', overflow: 'hidden', position: 'relative', cursor: 'pointer' }}>
+                  <img src={item.url} alt={item.name} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
+                  <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(transparent, rgba(0,0,0,0.8))', color: 'white', padding: '20px 15px 15px', textAlign: 'center' }}>
+                    {item.description || item.name}
+                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}

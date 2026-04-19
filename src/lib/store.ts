@@ -25,10 +25,10 @@ const defaultData = {
     { id: 3 as number | string, name: 'Yaz Okulu Kampanyası', discount: '%25', date: '2025-07-31', active: false }
   ],
   medya: [
-    { id: 1 as number | string, name: 'Eğitim Ortamımız', url: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop' },
-    { id: 2 as number | string, name: 'Kütüphanemiz', url: 'https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=800&auto=format&fit=crop' },
-    { id: 3 as number | string, name: 'Laboratuvar', url: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop' },
-    { id: 4 as number | string, name: 'Bilgisayar Laboratuvarı', url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop' }
+    { id: 1 as number | string, name: 'Eğitim Ortamımız', url: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as string[] },
+    { id: 2 as number | string, name: 'Kütüphanemiz', url: 'https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as string[] },
+    { id: 3 as number | string, name: 'Laboratuvar', url: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as string[] },
+    { id: 4 as number | string, name: 'Bilgisayar Laboratuvarı', url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as string[] }
   ],
   blog: [
     { id: 1 as number | string, title: 'YKS Başarı Stratejileri Semineri', author: 'Rehberlik Servisi', date: '2025-04-10', content: 'Öğrencilerimizle YKS öncesi motivasyon ve taktik seminerimizi gerçekleştirdik. Sınav kaygısını yönetmek ve etkili çalışma yöntemleri öğrendiler.', photo: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800&auto=format&fit=crop' as string | null | undefined },
@@ -66,7 +66,18 @@ const defaultData = {
     kutu3Baslik: 'Birebir Rehberlik',
     kutu3Aciklama: 'Öğrencilerimizin akademik ve psikolojik süreçlerini yakından takip eden kişiye özel danışmanlık sistemi.',
     ctaBaslik: 'Erken Kayıt Dönemi Başladı',
-    ctaAciklama: 'Sınırlı kontenjanlardan yararlanmak ve kursumuzu yakından tanımak için kurumumuzu ziyaret edin.'
+    ctaAciklama: 'Sınırlı kontenjanlardan yararlanmak ve kursumuzu yakından tanımak için kurumumuzu ziyaret edin.',
+    kurumBaslik: 'Eğitimde Yeni Nesil Yaklaşım',
+    kurumAciklama: 'Bireysel Kurs Merkezi olarak, Silopi\'deki öğrencilerimize en modern ve konforlu eğitim ortamını sunmak için her detayı düşündük. Kurumumuzda 150 öğrenci kapasiteli, sessiz ve ergonomik ders çalışma imkanı sunan geniş bir kütüphanemiz bulunmaktadır. Tüm alanlarımızda yüksek hızlı fiber internet erişimi ile dijital kaynaklara kesintisiz ulaşım sağlıyoruz.\n\nEğitim teknolojilerinde öncü vizyonumuzla her sınıfta 4K çözünürlüklü projeksiyon sistemleri kullanarak dersleri daha görsel ve etkileşimli hale getiriyoruz. Akademik başarının sadece dersle sınırlı olmadığının bilinciyle, her öğrencimize kişiye özel eğitim koçluğu hizmeti veriyor, gelişimlerini haftalık periyotlarla yakından takip ediyoruz. Ayrıca ferah kafeteryamız ve 7/24 erişilebilir soru çözüm ofislerimizle, öğrencilerimizin sadece bir kurs değil, tam donanımlı bir yaşam alanı bulmalarını sağlıyoruz.',
+    kurumGorsel: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop',
+    ozellikler: [
+      { id: 1, title: 'Kütüphane Kapasitesi', value: '150 Öğrenci', icon: '📚' },
+      { id: 2, title: 'Fiber İnternet', value: '1000 Mbps', icon: '🌐' },
+      { id: 3, title: 'Birebir Koçluk', value: 'Haftalık Takip', icon: '🎯' },
+      { id: 4, title: 'Teknolojik Sınıflar', value: '4K Projeksiyon', icon: '📽️' },
+      { id: 5, title: 'Soru Çözüm Ofisi', value: '7/24 Erişim', icon: '✍️' },
+      { id: 6, title: 'Kafeterya', value: 'Dinlenme Alanı', icon: '☕' }
+    ]
   }
 };
 
@@ -84,8 +95,10 @@ async function fetchFromFirebase<K extends keyof typeof defaultData>(key: K) {
       const docSnap = await getDoc(docRef);
       
       if (docSnap.exists()) {
-        console.log('✅ Firebase\'ten ayarlar yüklendi:', docSnap.data());
-        return docSnap.data();
+        const fetchedData = docSnap.data();
+        console.log('✅ Firebase\'ten ayarlar yüklendi:', fetchedData);
+        // Yeni eklenen alanların kaybolmaması için defaultData ile birleştiriyoruz
+        return { ...defaultData[key], ...fetchedData };
       } else {
         console.log('⚠️ Firebase\'de ayarlar dökümanı bulunamadı! Default veriler kullanılıyor.');
         return defaultData[key];
