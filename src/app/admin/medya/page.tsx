@@ -34,7 +34,25 @@ export default function Medya() {
     updateData(files.map((f: any) => {
       if (f.id === id) {
         const existing = f.extraImages || [];
-        return { ...f, extraImages: [...existing, url] };
+        // Mevcut veriler string ise objeye çevir
+        const normalized = existing.map((img: any) => typeof img === 'string' ? { url: img, description: '' } : img);
+        return { ...f, extraImages: [...normalized, { url, description: '' }] };
+      }
+      return f;
+    }));
+  };
+
+  const updateExtraImageDesc = (fileId: number | string, imgIdx: number, desc: string) => {
+    updateData(files.map((f: any) => {
+      if (f.id === fileId) {
+        const updated = (f.extraImages || []).map((img: any, idx: number) => {
+          if (idx === imgIdx) {
+            const imgObj = typeof img === 'string' ? { url: img, description: '' } : img;
+            return { ...imgObj, description: desc };
+          }
+          return img;
+        });
+        return { ...f, extraImages: updated };
       }
       return f;
     }));
@@ -75,12 +93,11 @@ export default function Medya() {
               onChange={(e) => updateFileDesc(file.id, e.target.value, file.description || '')}
               style={{ width: '100%', padding: '8px', marginBottom: '8px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '14px', boxSizing: 'border-box' }}
             />
-            <input 
-              type="text" 
-              placeholder="Görsel açıklaması..." 
+            <textarea 
+              placeholder="Sayfa içeriği / Açıklama..." 
               value={file.description || ''} 
               onChange={(e) => updateFileDesc(file.id, file.name, e.target.value)}
-              style={{ width: '100%', padding: '8px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '14px', boxSizing: 'border-box', marginBottom: '10px' }}
+              style={{ width: '100%', height: '80px', padding: '8px', border: '1px solid #cbd5e1', borderRadius: '4px', fontSize: '14px', boxSizing: 'border-box', marginBottom: '10px', resize: 'vertical' }}
             />
 
             {/* Ekstra Görseller Yönetimi */}
@@ -106,16 +123,27 @@ export default function Medya() {
                     label="Ek Görsel Yükle"
                   />
                   {(file.extraImages || []).length > 0 && (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', marginTop: '10px' }}>
-                      {(file.extraImages || []).map((img: string, idx: number) => (
-                        <div key={idx} style={{ position: 'relative', borderRadius: '6px', overflow: 'hidden', aspectRatio: '1' }}>
-                          <img src={img} alt={`Ek ${idx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                          <button
-                            onClick={() => removeExtraImage(file.id, idx)}
-                            style={{ position: 'absolute', top: '4px', right: '4px', background: '#dc2626', color: 'white', border: 'none', borderRadius: '50%', width: '22px', height: '22px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}
-                          >×</button>
-                        </div>
-                      ))}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '15px' }}>
+                      {(file.extraImages || []).map((img: any, idx: number) => {
+                        const imgObj = typeof img === 'string' ? { url: img, description: '' } : img;
+                        return (
+                          <div key={idx} style={{ padding: '10px', background: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                            <div style={{ display: 'flex', gap: '10px', marginBottom: '8px' }}>
+                              <img src={imgObj.url} alt={`Ek ${idx + 1}`} style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '4px' }} />
+                              <textarea
+                                placeholder="Görsel açıklaması..."
+                                value={imgObj.description || ''}
+                                onChange={(e) => updateExtraImageDesc(file.id, idx, e.target.value)}
+                                style={{ flex: 1, height: '60px', padding: '6px', fontSize: '12px', border: '1px solid #cbd5e1', borderRadius: '4px', resize: 'none' }}
+                              />
+                            </div>
+                            <button
+                              onClick={() => removeExtraImage(file.id, idx)}
+                              style={{ width: '100%', padding: '4px', background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '11px', fontWeight: '600' }}
+                            >Görseli Kaldır</button>
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -123,6 +151,7 @@ export default function Medya() {
             </div>
 
             <button onClick={() => deleteFile(file.id)} style={{ position: 'absolute', top: '20px', right: '20px', background: '#dc2626', color: 'white', border: 'none', borderRadius: '50%', width: '30px', height: '30px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', fontSize: '18px' }}>×</button>
+            <a href={`/medya/${file.id}`} target="_blank" rel="noreferrer" style={{ position: 'absolute', top: '20px', left: '20px', background: 'var(--primary-color)', color: 'white', border: 'none', borderRadius: '6px', padding: '6px 10px', cursor: 'pointer', textDecoration: 'none', fontSize: '13px' }}>Sayfayı Gör</a>
           </div>
         ))}
       </div>

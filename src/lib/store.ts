@@ -25,10 +25,10 @@ const defaultData = {
     { id: 3 as number | string, name: 'Yaz Okulu Kampanyası', discount: '%25', date: '2025-07-31', active: false }
   ],
   medya: [
-    { id: 1 as number | string, name: 'Eğitim Ortamımız', url: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as string[] },
-    { id: 2 as number | string, name: 'Kütüphanemiz', url: 'https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as string[] },
-    { id: 3 as number | string, name: 'Laboratuvar', url: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as string[] },
-    { id: 4 as number | string, name: 'Bilgisayar Laboratuvarı', url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as string[] }
+    { id: 1 as number | string, name: 'Eğitim Ortamımız', url: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as {url: string, description: string}[] },
+    { id: 2 as number | string, name: 'Kütüphanemiz', url: 'https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as {url: string, description: string}[] },
+    { id: 3 as number | string, name: 'Laboratuvar', url: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as {url: string, description: string}[] },
+    { id: 4 as number | string, name: 'Bilgisayar Laboratuvarı', url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as {url: string, description: string}[] }
   ],
   blog: [
     { id: 1 as number | string, title: 'YKS Başarı Stratejileri Semineri', author: 'Rehberlik Servisi', date: '2025-04-10', content: 'Öğrencilerimizle YKS öncesi motivasyon ve taktik seminerimizi gerçekleştirdik. Sınav kaygısını yönetmek ve etkili çalışma yöntemleri öğrendiler.', photo: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800&auto=format&fit=crop' as string | null | undefined },
