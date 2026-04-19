@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
+import ApplicationModal from "@/components/ApplicationModal";
 
 const poppins = Poppins({ 
   weight: ['400', '500', '600', '700', '800'],
@@ -27,6 +28,7 @@ export default function RootLayout({
           {children}
         </main>
         
+        <ApplicationModal />
         {/* Floating WhatsApp Button */}
         <a href="https://wa.me/905550541230" target="_blank" rel="noopener noreferrer" className="whatsapp-float" aria-label="WhatsApp Destek">
           <svg viewBox="0 0 24 24" fill="currentColor">

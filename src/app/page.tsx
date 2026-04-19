@@ -190,9 +190,9 @@ export default function Home() {
               <p style={{ fontSize: '0.9rem', color: '#94a3b8', marginBottom: '30px' }}>
                 Son Geçerlilik: {activeKampanyalar[0].date}
               </p>
-              <Link href="/iletisim" onClick={() => setShowCampaignPopup(false)} className="btn btn-primary" style={{ display: 'block', width: '100%', padding: '15px', fontSize: '1.1rem' }}>
+              <button onClick={() => { setShowCampaignPopup(false); window.dispatchEvent(new Event('open-application-modal')); }} className="btn btn-primary" style={{ display: 'block', width: '100%', padding: '15px', fontSize: '1.1rem', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
                 Hemen Başvur ve Fırsatı Yakala
-              </Link>
+              </button>
               <button onClick={() => setShowCampaignPopup(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', textDecoration: 'underline', marginTop: '15px', cursor: 'pointer', fontSize: '0.9rem' }}>
                 Hayır, teşekkürler
               </button>
@@ -265,7 +265,7 @@ export default function Home() {
                   {ayarlar?.heroAciklama || "25 yıllık eğitim tecrübemizle Silopi'de YKS, LGS ve Yabancı Dil eğitiminde yeni bir sayfa açıyoruz."}
                 </p>
                 <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-                  <Link href="/iletisim" className="btn btn-primary">Ön Başvuru</Link>
+                  <button onClick={() => window.dispatchEvent(new Event('open-application-modal'))} className="btn btn-primary" style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem' }}>Ön Başvuru</button>
                   <Link href="/kurslar" className="btn btn-outline" style={{ borderColor: 'white', color: 'white' }}>Kurslarımız</Link>
                 </div>
               </div>
@@ -631,9 +631,9 @@ export default function Home() {
             <p style={{ fontSize: '1.3rem', marginBottom: '45px', color: 'rgba(255,255,255,0.85)', maxWidth: '750px', margin: '0 auto 40px auto', lineHeight: '1.8' }}>
               {ayarlar?.ctaAciklama || 'Erken kayıt avantajlarından yararlanmak ve sınırlı kontenjanımızda yerinizi ayırtmak için hemen iletişime geçin.'}
             </p>
-            <Link href="/iletisim" className="btn btn-primary" style={{ padding: '18px 45px', fontSize: '18px', boxShadow: '0 8px 25px rgba(241,97,1,0.4)' }}>
+            <button onClick={() => window.dispatchEvent(new Event('open-application-modal'))} className="btn btn-primary" style={{ padding: '18px 45px', fontSize: '18px', boxShadow: '0 8px 25px rgba(241,97,1,0.4)', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
               Ön Başvuru Formu
-            </Link>
+            </button>
           </div>
         </section>
       </div>

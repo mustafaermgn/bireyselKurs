@@ -1,3 +1,5 @@
+import ApplicationButton from '@/components/ApplicationButton';
+
 export default function LGS() {
       return (
         <div className="main-container">
@@ -9,7 +11,7 @@ export default function LGS() {
           <section className="section container text-center">
             <h2 style={{ color: 'var(--accent-teal)' }}>Nitelikli Liselere Açılan Kapı</h2>
             <p>8. Sınıf öğrencileri için yeni nesil sorulara tam uyumlu, analitik düşünme becerisini geliştiren özel eğitim programımızla LGS&apos;de fark yaratın.</p>
-            <a href="/iletisim" className="btn btn-primary" style={{ marginTop: '20px' }}>Hemen Başvur</a>
+            <ApplicationButton style={{ marginTop: '20px' }}>Hemen Başvur</ApplicationButton>
           </section>
         </div>
       );

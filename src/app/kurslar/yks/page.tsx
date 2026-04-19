@@ -1,3 +1,5 @@
+import ApplicationButton from '@/components/ApplicationButton';
+
 export default function YKS() {
       return (
         <div className="main-container">
@@ -9,7 +11,7 @@ export default function YKS() {
           <section className="section container text-center">
             <h2 style={{ color: 'var(--primary-color)' }}>Üniversite Hayallerinize Giden Yol</h2>
             <p>12. Sınıf ve Mezun grupları için yoğunlaştırılmış YKS hazırlık programımızla hedeflerinize emin adımlarla ilerleyin. Bol soru çözümü, Türkiye geneli denemeler ve birebir rehberlik desteği.</p>
-            <a href="/iletisim" className="btn btn-primary" style={{ marginTop: '20px' }}>Hemen Başvur</a>
+            <ApplicationButton style={{ marginTop: '20px' }}>Hemen Başvur</ApplicationButton>
           </section>
         </div>
       );
