@@ -13,7 +13,7 @@ export default function Medya() {
       name: `Görsel ${files.length + 1}`,
       url: url,
       description: '',
-      extraImages: [] as string[]
+      extraImages: [] as { url: string; description: string; }[]
     };
     updateData([...files, newFile]);
   };
