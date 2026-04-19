@@ -9,6 +9,9 @@ export default function GaleriDetay({ params }: { params: Promise<{ id: string }
 
   const item = medya?.find((m: any) => String(m.id) === String(id));
 
+  const extraImages: any[] = item?.extraImages || [];
+  const [activeIndex, setActiveIndex] = React.useState(0);
+
   if (!isLoaded) {
     return (
       <div className="main-container">
@@ -36,22 +39,6 @@ export default function GaleriDetay({ params }: { params: Promise<{ id: string }
     );
   }
 
-  const extraImages: string[] = item.extraImages || [];
-
-  return (
-    <div className="main-container">
-      {/* Page Header */}
-      <section className="bg-navy" style={{ padding: '80px 0', textAlign: 'center' }}>
-        <div className="container">
-          <h1 style={{ margin: 0, fontSize: '2.5rem' }}>{item.name}</h1>
-          <p style={{ color: 'rgba(255,255,255,0.7)', marginTop: '10px' }}>
-            <Link href="/galeri" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>Galeri</Link> / {item.name}
-          </p>
-        </div>
-      </section>
-
-  const [activeIndex, setActiveIndex] = React.useState(0);
-  const extraImages: any[] = item.extraImages || [];
 
   const nextSlide = () => {
     setActiveIndex((prev) => (prev + 1) % extraImages.length);
