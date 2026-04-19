@@ -53,21 +53,14 @@ export default function Navbar() {
   return (
     <header className={`header ${scrolled ? 'scrolled' : ''} ${hidden ? 'header-hidden' : ''}`}>
       <div className="container nav-container">
-        <Link href="/" className="logo">
-          {isLoaded && ayarlar?.logo ? (
-            <>
-              <img src={ayarlar.logo} alt="SİLOPİ BİREYSEL KURS" style={{ height: '50px', width: 'auto', objectFit: 'contain' }} />
-              <span style={{ whiteSpace: 'nowrap' }}>Silopi Bireysel <span>Kurs</span></span>
-            </>
-          ) : (
-            <>
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="var(--primary-color)"/>
-                <path d="M2 17L12 22L22 17M2 12L12 17L22 12" stroke="var(--secondary-color)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              <span style={{ whiteSpace: 'nowrap' }}>Silopi Bireysel <span>Kurs</span></span>
-            </>
+        <Link href="/" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          {isLoaded && ayarlar?.logo && (
+            <img src={ayarlar.logo} alt="SİLOPİ BİREYSEL KURS" style={{ height: '45px', width: 'auto', objectFit: 'contain' }} />
           )}
+          <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.2' }}>
+            <span style={{ fontSize: '16px', fontWeight: '800' }}>SİLOPİ BİREYSEL</span>
+            <span style={{ fontSize: '14px', color: 'var(--primary-color)', fontWeight: '700' }}>KURS MERKEZİ</span>
+          </div>
         </Link>
         
         {/* Mobile Menu Toggle */}

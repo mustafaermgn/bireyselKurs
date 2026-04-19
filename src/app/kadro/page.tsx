@@ -23,7 +23,7 @@ export default function KadroPage() {
             Öğrencilerimizin başarısı için gece gündüz demeden çalışan, tecrübeli ve dinamik eğitim kadromuzla tanışın.
           </p>
           
-          <div className="kadro-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '30px' }}>
+          <div className="responsive-grid">
             {isLoaded && kadro.length > 0 ? kadro.map((k: any) => (
               <div key={k.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', padding: '16px 10px' }}>
                 <div style={{ width: '110px', height: '110px', borderRadius: '50%', overflow: 'hidden', border: '4px solid var(--accent-teal)', boxShadow: '0 4px 16px rgba(45,163,151,0.2)', marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#e2e8f0', fontSize: '3rem' }}>

@@ -13,10 +13,10 @@ export default function Hakkimizda() {
 
       <section className="section">
         <div className="container">
-          <div className="grid grid-cols-2 mobile-reverse" style={{ gap: '60px', alignItems: 'center' }}>
+          <div className="grid grid-cols-2 mobile-reverse responsive-gap" style={{ alignItems: 'center' }}>
             <div>
               <span className="section-subtitle">BİZ KİMİZ?</span>
-              <h2 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Geleceğe Değer Katan<br/>Bir Eğitim Yuvası</h2>
+              <h2 style={{ marginBottom: '20px' }}>Geleceğe Değer Katan<br/>Bir Eğitim Yuvası</h2>
               <p style={{ fontSize: '1.1rem', marginBottom: '20px' }}>
                 Şırnak Silopi&apos;de yılların verdiği tecrübe ile eğitim sektöründe öncü olan Bireysel Kurs Merkezi, 
                 öğrencilerini sadece sınavlara değil, hayata hazırlayan bir kuruluştur.

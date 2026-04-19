@@ -10,7 +10,7 @@ export default function CallToAction() {
       <div style={{ position: 'absolute', right: '10%', bottom: '20%', width: '180px', height: '180px', borderRadius: '50%', background: '#2da393', opacity: '0.15', filter: 'blur(30px)' }}></div>
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px', position: 'relative', zIndex: 10 }}>
-        <h2 style={{ fontSize: '2.5rem', marginBottom: '20px', fontWeight: '800', color: 'white', margin: '0 0 20px 0' }}>
+        <h2 style={{ marginBottom: '20px', fontWeight: '800', color: 'white', margin: '0 0 20px 0' }}>
           {ayarlar?.ctaBaslik || 'Kaydınızı Şimdi Yaptırın'}
         </h2>
         <p style={{ fontSize: '1.1rem', marginBottom: '30px', color: 'rgba(255,255,255,0.85)', maxWidth: '700px', margin: '0 auto 30px auto', lineHeight: '1.8' }}>

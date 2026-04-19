@@ -26,9 +26,7 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
-      console.log('🔐 Admin giriş deneniyor:', email);
       await loginAdmin(email, password);
-      console.log('✅ Giriş başarılı');
       router.push('/admin/medya');
     } catch (err) {
       const errorMsg = getErrorMessage(err);
@@ -158,12 +156,7 @@ export default function AdminLogin() {
             </button>
           </form>
 
-          {/* Info Box */}
-          <div style={{ background: '#eff6ff', border: '1px solid #bfdbfe', padding: '12px', borderRadius: '8px', marginTop: '24px', fontSize: '0.85rem', color: '#1e40af' }}>
-            <div style={{ fontWeight: '600', marginBottom: '6px' }}>💡 Test Hesabı:</div>
-            <div>Email: <code style={{ background: 'white', padding: '2px 6px', borderRadius: '4px' }}>admin@example.com</code></div>
-            <div>Şifre: <code style={{ background: 'white', padding: '2px 6px', borderRadius: '4px' }}>Admin123456</code></div>
-          </div>
+
         </div>
 
         {/* Footer */}

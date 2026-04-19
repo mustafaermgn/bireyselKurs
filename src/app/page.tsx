@@ -121,7 +121,7 @@ export default function Home() {
             {ayarlar?.logo ? (
               <img src={ayarlar.logo} alt="Bireysel Kurs Logo" style={{ width: '180px', height: '180px', objectFit: 'contain' }} />
             ) : (
-              <div style={{ width: '120px', height: '120px', borderRadius: '50%', background: 'var(--primary-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '2rem', fontWeight: 'bold' }}>
+              <div style={{ width: '120px', height: '120px', borderRadius: '50%', background: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--secondary-color)', fontSize: '2rem', fontWeight: 'bold' }}>
                 BKM
               </div>
             )}
@@ -227,10 +227,10 @@ export default function Home() {
                 <span style={{ color: 'var(--primary-color)', fontSize: '1.25rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '2px', display: 'block', marginBottom: '1rem' }}>
                   {ayarlar?.heroUstBaslik || 'SİLOPİ BİREYSEL KURS MERKEZİ'}
                 </span>
-                <h1 className="hero-title" style={{ fontSize: '4.5rem', marginBottom: '25px', lineHeight: '1.15', fontWeight: '800' }}>
+                <h1 className="hero-title" style={{ marginBottom: '25px', lineHeight: '1.15', fontWeight: '800' }}>
                   {ayarlar?.heroAnaBaslik || 'Geleceğinizi Şansa Bırakmayın.'}
                 </h1>
-                <p style={{ fontSize: '1.25rem', marginBottom: '45px', color: 'rgba(255,255,255,0.85)', maxWidth: '550px', lineHeight: '1.8' }}>
+                <p style={{ fontSize: 'clamp(1rem, 3vw, 1.25rem)', marginBottom: '45px', color: 'rgba(255,255,255,0.85)', maxWidth: '550px', lineHeight: '1.8' }}>
                   {ayarlar?.heroAciklama || "25 yıllık eğitim tecrübemizle Silopi'de YKS, LGS ve Yabancı Dil eğitiminde yeni bir sayfa açıyoruz."}
                 </p>
                 <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
@@ -404,12 +404,7 @@ export default function Home() {
               <div className="card course-card" style={{ padding: '40px 30px', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', border: 'none', background: 'white', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
                 <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '150px', height: '150px', borderRadius: '50%', background: 'var(--accent-teal)', opacity: '0.05', transition: 'all 0.6s ease' }} className="course-blob"></div>
 
-                <div style={{ width: '70px', height: '70px', borderRadius: '20px', background: 'rgba(45, 163, 151, 0.1)', color: 'var(--accent-teal)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '30px', position: 'relative', zIndex: 2 }}>
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
-                    <path d="M8 7h6"></path><path d="M8 11h8"></path>
-                  </svg>
-                </div>
+
 
                 <div style={{ flex: 1, position: 'relative', zIndex: 2 }}>
                   <h4 style={{ fontSize: '1.4rem', marginBottom: '15px', fontWeight: '800' }}>
@@ -432,12 +427,7 @@ export default function Home() {
               <div className="card course-card" style={{ padding: '40px 30px', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', border: 'none', background: 'white', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
                 <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '150px', height: '150px', borderRadius: '50%', background: 'var(--primary-color)', opacity: '0.05', transition: 'all 0.6s ease' }} className="course-blob"></div>
 
-                <div style={{ width: '70px', height: '70px', borderRadius: '20px', background: 'rgba(241, 97, 1, 0.1)', color: 'var(--primary-color)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '30px', position: 'relative', zIndex: 2 }}>
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-                  </svg>
-                </div>
+
 
                 <div style={{ flex: 1, position: 'relative', zIndex: 2 }}>
                   <h4 style={{ fontSize: '1.4rem', marginBottom: '15px', fontWeight: '800' }}>
@@ -460,13 +450,7 @@ export default function Home() {
               <div className="card course-card" style={{ padding: '40px 30px', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', border: 'none', background: 'white', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
                 <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '150px', height: '150px', borderRadius: '50%', background: 'var(--accent-purple)', opacity: '0.05', transition: 'all 0.6s ease' }} className="course-blob"></div>
 
-                <div style={{ width: '70px', height: '70px', borderRadius: '20px', background: 'rgba(124, 75, 192, 0.1)', color: 'var(--accent-purple)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '30px', position: 'relative', zIndex: 2 }}>
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                  </svg>
-                </div>
+
 
                 <div style={{ flex: 1, position: 'relative', zIndex: 2 }}>
                   <h4 style={{ fontSize: '1.4rem', marginBottom: '15px', fontWeight: '800' }}>
@@ -489,11 +473,7 @@ export default function Home() {
               <div className="card course-card" style={{ padding: '40px 30px', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', border: 'none', background: 'white', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
                 <div style={{ position: 'absolute', top: '-50px', right: '-50px', width: '150px', height: '150px', borderRadius: '50%', background: 'var(--accent-red)', opacity: '0.05', transition: 'all 0.6s ease' }} className="course-blob"></div>
 
-                <div style={{ width: '70px', height: '70px', borderRadius: '20px', background: 'rgba(239, 68, 68, 0.1)', color: 'var(--accent-red)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '30px', position: 'relative', zIndex: 2 }}>
-                  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                  </svg>
-                </div>
+
 
                 <div style={{ flex: 1, position: 'relative', zIndex: 2 }}>
                   <h4 style={{ fontSize: '1.4rem', marginBottom: '15px', fontWeight: '800' }}>
@@ -519,7 +499,7 @@ export default function Home() {
         {ayarlarLoaded && ayarlar.kurumBaslik && (
           <section className="section bg-white" style={{ padding: '100px 0', overflow: 'hidden' }}>
             <div className="container">
-              <div className="grid grid-cols-2 grid-cols-mobile-1" style={{ gap: '80px', alignItems: 'center' }}>
+              <div className="grid grid-cols-2 grid-cols-mobile-1 responsive-gap" style={{ alignItems: 'center' }}>
                 {/* Sol Taraf - Görsel ve Dekorasyon */}
                 <div style={{ position: 'relative' }}>
                   <div style={{ 
@@ -586,22 +566,20 @@ export default function Home() {
                   <h2 style={{ 
                     marginTop: '20px', 
                     marginBottom: '25px', 
-                    fontSize: '3.2rem', 
                     color: 'var(--heading-color)', 
                     fontWeight: '800', 
                     lineHeight: '1.1',
                     letterSpacing: '-1px'
                   }}>{ayarlar.kurumBaslik}</h2>
                   
-                  <div style={{ width: '60px', height: '5px', background: 'var(--primary-color)', marginBottom: '35px', borderRadius: '3px' }}></div>
+                  <div style={{ width: '60px', height: '5px', background: 'var(--primary-color)', marginBottom: '35px', borderRadius: '3px' }} className="mobile-center"></div>
                   
                   <p style={{ 
-                    fontSize: '1.25rem', 
+                    fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', 
                     color: '#475569', 
                     lineHeight: '1.8', 
                     margin: 0, 
-                    whiteSpace: 'pre-line',
-                    textAlign: 'justify'
+                    whiteSpace: 'pre-line'
                   }}>
                     {ayarlar.kurumAciklama}
                   </p>
