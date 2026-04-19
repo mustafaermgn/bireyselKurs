@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 import ApplicationModal from "@/components/ApplicationModal";
 
 const poppins = Poppins({ 
@@ -28,7 +27,6 @@ export default function RootLayout({
         <main style={{ minHeight: '100vh', paddingTop: '90px' }}>
           {children}
         </main>
-        <Footer />
         
         <ApplicationModal />
         {/* Floating WhatsApp Button */}
