@@ -8,10 +8,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // If it's the login page, don't show the dashboard sidebar
-  if (pathname === '/admin') {
-    return <>{children}</>;
-  }
+
 
   return (
     <div style={{ display: 'block', minHeight: '100vh', background: '#f1f5f9' }}>
