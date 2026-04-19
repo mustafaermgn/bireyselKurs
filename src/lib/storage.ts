@@ -9,12 +9,20 @@ import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage
  */
 export async function uploadFile(file: File, path: string): Promise<string> {
   try {
+    console.log('🔄 uploadFile çağrıldı:', path);
     const storageRef = ref(storage, path);
+    console.log('📌 Storage ref oluşturuldu');
     await uploadBytes(storageRef, file);
+    console.log('💾 Dosya baytlar yüklendi');
     const downloadURL = await getDownloadURL(storageRef);
+    console.log('🔗 Download URL alındı:', downloadURL);
     return downloadURL;
   } catch (error) {
-    console.error('Dosya yükleme hatası:', error);
+    console.error('❌ uploadFile hatası:', error);
+    if (error instanceof Error) {
+      console.error('Hata mesajı:', error.message);
+      console.error('Hata kodu:', (error as any).code);
+    }
     throw error;
   }
 }
@@ -61,7 +69,15 @@ export async function uploadImage(file: File, folder: string = 'images'): Promis
   const timestamp = Date.now();
   const fileName = `${timestamp}-${file.name}`;
   const path = `${folder}/${fileName}`;
-  return uploadFile(file, path);
+  console.log('📤 Dosya yükleniyor:', { folder, path, fileName, fileSize: file.size, fileType: file.type });
+  try {
+    const url = await uploadFile(file, path);
+    console.log('✅ Dosya başarıyla yüklendi:', url);
+    return url;
+  } catch (error) {
+    console.error('❌ Yükleme hatası:', error);
+    throw error;
+  }
 }
 
 /**

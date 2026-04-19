@@ -1,14 +1,60 @@
 "use client";
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { onAuthChange, logoutAdmin, getCurrentUser } from '@/lib/auth';
+import { User } from 'firebase/auth';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
+  // Auth kontrolü
+  useEffect(() => {
+    const unsubscribe = onAuthChange((authUser) => {
+      setUser(authUser);
+      setLoading(false);
+      
+      // Giriş sayfasında değilse ve giriş yapmamışsa, login'e yönlendir
+      if (!authUser && pathname !== '/admin') {
+        router.push('/admin');
+      }
+    });
 
+    return () => unsubscribe();
+  }, [pathname, router]);
+
+  // Login sayfasıysa sidebar gösterme
+  if (pathname === '/admin') {
+    return children;
+  }
+
+  // Yükleniyor durumu
+  if (loading) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f1f5f9' }}>
+        <div>Yükleniyor...</div>
+      </div>
+    );
+  }
+
+  // Giriş yapmadıysa login'e yönlendir
+  if (!user) {
+    return null;
+  }
+
+  const handleLogout = async () => {
+    try {
+      await logoutAdmin();
+      router.push('/admin');
+    } catch (error) {
+      console.error('Çıkış hatası:', error);
+    }
+  };
 
   return (
     <div style={{ display: 'block', minHeight: '100vh', background: '#f1f5f9' }}>
@@ -52,7 +98,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           {[
-            { path: '/admin', icon: '📊', label: 'Dashboard' },
             { path: '/admin/crm', icon: '📝', label: 'Başvuru CRM' },
             { path: '/admin/kadro', icon: '👨‍🏫', label: 'Eğitim Kadrosu' },
             { path: '/admin/basarilar', icon: '🏆', label: 'Başarılarımız' },
@@ -82,10 +127,26 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           ))}
         </nav>
 
-        <div style={{ marginTop: 'auto', padding: '0 1rem' }}>
+        <div style={{ marginTop: 'auto', padding: '0 1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
           <Link href="/" style={{ color: '#94a3b8', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span>←</span> Siteye Dön
           </Link>
+          <button 
+            onClick={handleLogout}
+            style={{ 
+              color: '#f87171', 
+              fontSize: '0.9rem', 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '0.5rem',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              textAlign: 'left'
+            }}
+          >
+            <span>🚪</span> Çıkış Yap
+          </button>
         </div>
       </aside>
 
@@ -102,7 +163,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </button>
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginLeft: 'auto' }}>
-            <span style={{ color: '#475569', fontWeight: '500' }}>Admin Kullanıcısı</span>
+            <span style={{ color: '#475569', fontWeight: '500' }}>
+              {user?.email || 'Admin Kullanıcısı'}
+            </span>
             <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               👤
             </div>
@@ -114,6 +177,26 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {children}
         </div>
       </main>
+      
+      {/* Dynamic styles for admin responsive */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @media (min-width: 992px) {
+          .admin-sidebar { left: 0 !important; }
+          .admin-main { 
+            margin-left: 250px !important; 
+            width: calc(100% - 250px) !important; 
+          }
+          .admin-menu-toggle { display: none !important; }
+          .mobile-close-btn { display: none !important; }
+        }
+        @media (max-width: 767px) {
+          .admin-main > div { padding: 1rem !important; }
+          header { padding: 1rem !important; }
+        }
+      `}} />
+    </div>
+  );
+}
       
       {/* Dynamic styles for admin responsive */}
       <style dangerouslySetInnerHTML={{__html: `

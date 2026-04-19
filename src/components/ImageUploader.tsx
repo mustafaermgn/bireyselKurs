@@ -26,36 +26,52 @@ export default function ImageUploader({
     const file = e.target.files?.[0];
     if (!file) return;
 
+    console.log('📁 Dosya seçildi:', { name: file.name, size: file.size, type: file.type });
+
     // Dosya tipi kontrol
     if (!file.type.startsWith('image/')) {
-      setError('Lütfen bir resim dosyası seçiniz');
+      const errorMsg = 'Lütfen bir resim dosyası seçiniz';
+      setError(errorMsg);
+      console.error('❌ ' + errorMsg, file.type);
       return;
     }
 
     // Dosya boyutu kontrol (5MB)
     if (file.size > 5 * 1024 * 1024) {
-      setError('Dosya boyutu 5MB\'dan küçük olmalıdır');
+      const errorMsg = 'Dosya boyutu 5MB\'dan küçük olmalıdır';
+      setError(errorMsg);
+      console.error('❌ ' + errorMsg, file.size);
       return;
     }
 
     try {
       setUploading(true);
       setError('');
+      console.log('🚀 Yükleme başladı...');
 
       // Ön izleme göster
       const reader = new FileReader();
       reader.onload = (e) => {
         setPreview(e.target?.result as string);
+        console.log('👁️ Ön izleme gösterildi');
       };
       reader.readAsDataURL(file);
 
       // Firebase Storage'e yükle
+      console.log('⏳ Firebase\'e yükleniyor:', folder);
       const url = await uploadImage(file, folder);
+      console.log('✅ URL alındı, callback çağrılıyor:', url);
       onImageUpload(url);
       setError('');
+      console.log('✨ Yükleme tamamlandı');
     } catch (err) {
-      setError('Yükleme başarısız: ' + (err instanceof Error ? err.message : 'Bilinmeyen hata'));
+      const errorMsg = 'Yükleme başarısız: ' + (err instanceof Error ? err.message : 'Bilinmeyen hata');
+      setError(errorMsg);
       setPreview(null);
+      console.error('🔴 ' + errorMsg, err);
+      if (err instanceof Error && 'code' in err) {
+        console.error('Hata kodu:', (err as any).code);
+      }
     } finally {
       setUploading(false);
     }
