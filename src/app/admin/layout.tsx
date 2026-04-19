@@ -197,23 +197,3 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     </div>
   );
 }
-      
-      {/* Dynamic styles for admin responsive */}
-      <style dangerouslySetInnerHTML={{__html: `
-        @media (min-width: 992px) {
-          .admin-sidebar { left: 0 !important; }
-          .admin-main { 
-            margin-left: 250px !important; 
-            width: calc(100% - 250px) !important; 
-          }
-          .admin-menu-toggle { display: none !important; }
-          .mobile-close-btn { display: none !important; }
-        }
-        @media (max-width: 767px) {
-          .admin-main > div { padding: 1rem !important; }
-          header { padding: 1rem !important; }
-        }
-      `}} />
-    </div>
-  );
-}

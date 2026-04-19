@@ -1,7 +1,5 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, User } from 'firebase/auth';
-import app from './firebase';
-
-export const auth = getAuth(app);
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, User } from 'firebase/auth';
+import { auth } from './firebase';
 
 /**
  * Admin hesabı oluştur
