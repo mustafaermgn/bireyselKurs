@@ -274,6 +274,8 @@ export default function Home() {
                 <div className="hero-image-circle" style={{ overflow: 'hidden', position: 'relative', display: 'flex', alignItems: 'center' }}>
                   <div
                     ref={carouselRef}
+                    onWheel={(e) => e.preventDefault()}
+                    onTouchMove={(e) => e.preventDefault()}
                     style={{
                       display: 'flex',
                       width: '100%',
@@ -307,8 +309,8 @@ export default function Home() {
                     )}
                   </div>
 
-                  {/* Manual Navigation Buttons for Desktop */}
-                  {ayarlarLoaded && ayarlar?.heroImages && ayarlar.heroImages.length > 1 && (
+                  {/* Manual Navigation Buttons for Desktop - HIDDEN */}
+                  {false && ayarlarLoaded && ayarlar?.heroImages && ayarlar.heroImages.length > 1 && (
                     <>
                       <button
                         onClick={() => carouselRef.current?.scrollBy({ left: -carouselRef.current.clientWidth, behavior: 'smooth' })}
@@ -388,71 +390,7 @@ export default function Home() {
 
 
 
-        {/* Events / Posts Section */}
-        {blogs && blogs.length > 0 && (
-          <section className="bg-alt" style={{ padding: '60px 0' }}>
-            <div className="container">
-              <div className="text-center" style={{ marginBottom: '40px' }}>
-                <span className="section-subtitle" style={{ background: 'white', display: 'inline-block', padding: '5px 15px', borderRadius: '20px', boxShadow: 'var(--shadow-sm)' }}>HABERLER</span>
-
-              </div>
-
-              <div 
-                ref={newsCarouselRef}
-                style={{ 
-                  display: 'flex', 
-                  gap: '30px', 
-                  overflowX: 'auto', 
-                  scrollSnapType: 'x mandatory', 
-                  scrollbarWidth: 'none', 
-                  msOverflowStyle: 'none', 
-                  WebkitOverflowScrolling: 'touch',
-                  paddingBottom: '20px',
-                  margin: '0 -15px',
-                  padding: '10px 15px 30px 15px'
-                }}
-              >
-                {blogs.map((b: any) => (
-                  <div key={b.id} className="card course-card" style={{ flex: '0 0 320px', scrollSnapAlign: 'start', display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 0, border: 'none', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
-                    <div style={{ height: '220px', backgroundColor: '#e2e8f0', position: 'relative', overflow: 'hidden' }}>
-                      {b.photo ? (
-                        <img src={b.photo} alt={b.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
-                      ) : (
-                        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)' }}>
-                          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                            <polyline points="21 15 16 10 5 21"></polyline>
-                          </svg>
-                        </div>
-                      )}
-                      <div style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(255,255,255,0.95)', padding: '6px 14px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--primary-color)', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
-                        {b.date}
-                      </div>
-                    </div>
-                    <div style={{ padding: '35px 30px', flex: 1, display: 'flex', flexDirection: 'column', background: 'white' }}>
-                      <h4 style={{ fontSize: '1.3rem', marginBottom: '15px', color: 'var(--heading-color)', fontWeight: '800', lineHeight: '1.4', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{b.title}</h4>
-                      <p style={{
-                        margin: 0,
-                        color: '#64748b',
-                        fontSize: '0.95rem',
-                        lineHeight: '1.6',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden'
-                      }}>
-                        {b.content}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Courses Section */}
+        {/* Courses Section - EĞİTİM PROGRAMLARI */}
         <section className="bg-alt" style={{ padding: '60px 0', borderTop: '1px solid #f1f5f9' }}>
           <div className="container">
             <div className="text-center" style={{ marginBottom: '50px' }}>
@@ -576,6 +514,70 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* Events / Posts Section */}
+        {blogs && blogs.length > 0 && (
+          <section className="bg-alt" style={{ padding: '60px 0' }}>
+            <div className="container">
+              <div className="text-center" style={{ marginBottom: '40px' }}>
+                <span className="section-subtitle" style={{ background: 'white', display: 'inline-block', padding: '5px 15px', borderRadius: '20px', boxShadow: 'var(--shadow-sm)' }}>HABERLER</span>
+
+              </div>
+
+              <div 
+                ref={newsCarouselRef}
+                style={{ 
+                  display: 'flex', 
+                  gap: '30px', 
+                  overflowX: 'auto', 
+                  scrollSnapType: 'x mandatory', 
+                  scrollbarWidth: 'none', 
+                  msOverflowStyle: 'none', 
+                  WebkitOverflowScrolling: 'touch',
+                  paddingBottom: '20px',
+                  margin: '0 -15px',
+                  padding: '10px 15px 30px 15px'
+                }}
+              >
+                {blogs.map((b: any) => (
+                  <div key={b.id} className="card course-card" style={{ flex: '0 0 320px', scrollSnapAlign: 'start', display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: 0, border: 'none', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.02)' }}>
+                    <div style={{ height: '220px', backgroundColor: '#e2e8f0', position: 'relative', overflow: 'hidden' }}>
+                      {b.photo ? (
+                        <img src={b.photo} alt={b.title} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'} />
+                      ) : (
+                        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%)' }}>
+                          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                          </svg>
+                        </div>
+                      )}
+                      <div style={{ position: 'absolute', top: '20px', right: '20px', background: 'rgba(255,255,255,0.95)', padding: '6px 14px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 'bold', color: 'var(--primary-color)', boxShadow: '0 4px 10px rgba(0,0,0,0.1)' }}>
+                        {b.date}
+                      </div>
+                    </div>
+                    <div style={{ padding: '35px 30px', flex: 1, display: 'flex', flexDirection: 'column', background: 'white' }}>
+                      <h4 style={{ fontSize: '1.3rem', marginBottom: '15px', color: 'var(--heading-color)', fontWeight: '800', lineHeight: '1.4', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{b.title}</h4>
+                      <p style={{
+                        margin: 0,
+                        color: '#64748b',
+                        fontSize: '0.95rem',
+                        lineHeight: '1.6',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 3,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden'
+                      }}>
+                        {b.content}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Gurur Tablomuz (Başarılarımız) */}
         {basarilar && basarilar.length > 0 && (
