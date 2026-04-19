@@ -8,7 +8,7 @@ export default function Home() {
   const { data: duyurular, isLoaded } = useAppStore('duyurular');
   const { data: kampanyalar } = useAppStore('kampanyalar');
   const { data: blogs } = useAppStore('blog');
-  const { data: ayarlar } = useAppStore('ayarlar');
+  const { data: ayarlar, isLoaded: ayarlarLoaded } = useAppStore('ayarlar');
   const { data: basarilar } = useAppStore('basarilar');
 
   const [currentDuyuru, setCurrentDuyuru] = useState(0);
@@ -70,7 +70,7 @@ export default function Home() {
 
   // Hero Image auto-scroll cycle
   useEffect(() => {
-    if (ayarlar?.heroImages && ayarlar.heroImages.length > 1) {
+    if (ayarlarLoaded && ayarlar?.heroImages && ayarlar.heroImages.length > 1) {
       const interval = setInterval(() => {
         if (carouselRef.current) {
           const { scrollLeft, clientWidth, scrollWidth } = carouselRef.current;
@@ -83,23 +83,23 @@ export default function Home() {
       }, 4000);
       return () => clearInterval(interval);
     }
-  }, [ayarlar?.heroImages]);
+  }, [ayarlarLoaded, ayarlar?.heroImages]);
 
   // Background auto-scroll cycle
   useEffect(() => {
-    if (ayarlar?.heroArkaplanlar && ayarlar.heroArkaplanlar.length > 1) {
+    if (ayarlarLoaded && ayarlar?.heroArkaplanlar && ayarlar.heroArkaplanlar.length > 1) {
       const interval = setInterval(() => {
         setBgIndex(prev => (prev + 1) % ayarlar.heroArkaplanlar.length);
       }, 5000); // 5 seconds
       return () => clearInterval(interval);
     }
-  }, [ayarlar?.heroArkaplanlar]);
+  }, [ayarlarLoaded, ayarlar?.heroArkaplanlar]);
 
   // Background swipe logic
   const handleBgTouchStart = (e: React.TouchEvent) => setBgTouchStart(e.targetTouches[0].clientX);
   const handleBgTouchMove = (e: React.TouchEvent) => setBgTouchEnd(e.targetTouches[0].clientX);
   const handleBgTouchEnd = () => {
-    if (!bgTouchStart || !bgTouchEnd) return;
+    if (!bgTouchStart || !bgTouchEnd || !ayarlarLoaded || !ayarlar?.heroArkaplanlar) return;
     const distance = bgTouchStart - bgTouchEnd;
 
     // Ignore small swipes
@@ -225,8 +225,8 @@ export default function Home() {
             overflow: 'hidden'
           }}
         >
-          {/* Background Images Slider */}
-          {ayarlar?.heroArkaplanlar && ayarlar.heroArkaplanlar.length > 0 && (
+          {/* Background Images Slider - Show only after ayarlar is loaded */}
+          {ayarlarLoaded && ayarlar?.heroArkaplanlar && ayarlar.heroArkaplanlar.length > 0 && (
             <>
               {ayarlar.heroArkaplanlar.map((bg: string, idx: number) => (
                 <div
@@ -289,7 +289,7 @@ export default function Home() {
                       __html: `
                       .hero-image-circle div::-webkit-scrollbar { display: none; }
                     `}} />
-                    {ayarlar?.heroImages && ayarlar.heroImages.length > 0 ? (
+                    {ayarlarLoaded && ayarlar?.heroImages && ayarlar.heroImages.length > 0 ? (
                       ayarlar.heroImages.map((img: string, idx: number) => (
                         <div key={idx} style={{ flex: '0 0 100%', width: '100%', height: '100%', scrollSnapAlign: 'start', position: 'relative' }}>
                           <img
@@ -301,12 +301,14 @@ export default function Home() {
                         </div>
                       ))
                     ) : (
-                      <div style={{ flex: '0 0 100%', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>EĞİTİM</div>
+                      <div style={{ flex: '0 0 100%', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #f16101 0%, #ff8c42 100%)', color: 'white', fontSize: '4rem' }}>
+                        {ayarlarLoaded ? '📸' : '⏳'}
+                      </div>
                     )}
                   </div>
 
                   {/* Manual Navigation Buttons for Desktop */}
-                  {ayarlar?.heroImages && ayarlar.heroImages.length > 1 && (
+                  {ayarlarLoaded && ayarlar?.heroImages && ayarlar.heroImages.length > 1 && (
                     <>
                       <button
                         onClick={() => carouselRef.current?.scrollBy({ left: -carouselRef.current.clientWidth, behavior: 'smooth' })}
