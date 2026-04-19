@@ -6,22 +6,15 @@ import ImageUploader from '@/components/ImageUploader';
 export default function Ayarlar() {
   const { data: ayarlar, updateData } = useAppStore('ayarlar');
   const [successMessage, setSuccessMessage] = useState('');
-  const [newHeroImage, setNewHeroImage] = useState<string | null>(null);
-  const [newBgImage, setNewBgImage] = useState<string | null>(null);
-  const [newLogo, setNewLogo] = useState<string | null>(null);
 
   const handleHeroImageUpload = (url: string) => {
-    setNewHeroImage(url);
-  };
-
-  const addHeroImage = () => {
-    if (newHeroImage) {
-      const currentImages = ayarlar?.heroImages || [];
-      updateData({ ...ayarlar, heroImages: [...currentImages, newHeroImage] });
-      setNewHeroImage(null);
-      setSuccessMessage('Slayt fotoğrafı başarıyla eklendi!');
-      setTimeout(() => setSuccessMessage(''), 3000);
-    }
+    console.log('📸 Slayt fotoğrafı yüklendi:', url);
+    // Otomatik olarak Firebase'e kaydet
+    const currentImages = ayarlar?.heroImages || [];
+    const newImages = [...currentImages, url];
+    updateData({ ...ayarlar, heroImages: newImages });
+    setSuccessMessage('Slayt fotoğrafı başarıyla kaydedildi!');
+    setTimeout(() => setSuccessMessage(''), 3000);
   };
 
   const removeHeroImage = (indexToRemove: number) => {
@@ -33,17 +26,13 @@ export default function Ayarlar() {
   };
 
   const handleBgImageUpload = (url: string) => {
-    setNewBgImage(url);
-  };
-
-  const addBgImage = () => {
-    if (newBgImage) {
-      const currentBg = ayarlar?.heroArkaplanlar || [];
-      updateData({ ...ayarlar, heroArkaplanlar: [...currentBg, newBgImage] });
-      setNewBgImage(null);
-      setSuccessMessage('Arka plan fotoğrafı başarıyla eklendi!');
-      setTimeout(() => setSuccessMessage(''), 3000);
-    }
+    console.log('🌅 Arka plan fotoğrafı yüklendi:', url);
+    // Otomatik olarak Firebase'e kaydet
+    const currentBg = ayarlar?.heroArkaplanlar || [];
+    const newBg = [...currentBg, url];
+    updateData({ ...ayarlar, heroArkaplanlar: newBg });
+    setSuccessMessage('Arka plan fotoğrafı başarıyla kaydedildi!');
+    setTimeout(() => setSuccessMessage(''), 3000);
   };
 
   const removeBgImage = (indexToRemove: number) => {
@@ -55,7 +44,11 @@ export default function Ayarlar() {
   };
 
   const handleLogoUpload = (url: string) => {
-    setNewLogo(url);
+    console.log('🎯 Logo yüklendi:', url);
+    // Otomatik olarak Firebase'e kaydet
+    updateData({ ...ayarlar, logo: url });
+    setSuccessMessage('Logo başarıyla kaydedildi!');
+    setTimeout(() => setSuccessMessage(''), 3000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -114,17 +107,7 @@ export default function Ayarlar() {
               onImageUpload={handleHeroImageUpload}
               folder="ayarlar-hero"
               label="Slayt Fotoğrafı Seç"
-              currentImage={newHeroImage}
             />
-
-            {newHeroImage && (
-              <button 
-                onClick={addHeroImage}
-                style={{ background: '#10b981', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '6px', cursor: 'pointer', marginBottom: '20px', fontWeight: '600' }}
-              >
-                ✅ Fotoğrafı Ekle
-              </button>
-            )}
 
             <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
               {(!ayarlar?.heroImages || ayarlar.heroImages.length === 0) && (
@@ -155,9 +138,7 @@ export default function Ayarlar() {
             </label>
             <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', marginTop: '15px' }}>
               <div style={{ width: '100px', height: '100px', borderRadius: '8px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed #cbd5e1', overflow: 'hidden' }}>
-                {newLogo ? (
-                  <img src={newLogo} alt="Logo Önizleme" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-                ) : ayarlar?.logo ? (
+                {ayarlar?.logo ? (
                   <img src={ayarlar.logo} alt="Logo Önizleme" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                 ) : (
                   "LOGO"
@@ -166,23 +147,15 @@ export default function Ayarlar() {
               <div style={{ flex: 1 }}>
                 <ImageUploader 
                   onImageUpload={handleLogoUpload}
+                  onImageDelete={() => {
+                    updateData({ ...ayarlar, logo: '' });
+                    setSuccessMessage('Logo silindi!');
+                    setTimeout(() => setSuccessMessage(''), 3000);
+                  }}
                   folder="ayarlar-logo"
                   label="Logo Yükle"
-                  currentImage={newLogo || ayarlar?.logo}
+                  currentImage={ayarlar?.logo}
                 />
-                {newLogo && (
-                  <button 
-                    onClick={() => {
-                      updateData({ ...ayarlar, logo: newLogo });
-                      setNewLogo(null);
-                      setSuccessMessage('Logo başarıyla güncellendi!');
-                      setTimeout(() => setSuccessMessage(''), 3000);
-                    }}
-                    style={{ background: '#10b981', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '6px', cursor: 'pointer', marginTop: '10px', fontWeight: '600' }}
-                  >
-                    ✅ Logoyu Kaydet
-                  </button>
-                )}
               </div>
             </div>
           </div>
@@ -199,17 +172,7 @@ export default function Ayarlar() {
               onImageUpload={handleBgImageUpload}
               folder="ayarlar-bg"
               label="Arka Plan Fotoğrafı Seç"
-              currentImage={newBgImage}
             />
-
-            {newBgImage && (
-              <button 
-                onClick={addBgImage}
-                style={{ background: '#10b981', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '6px', cursor: 'pointer', marginTop: '10px', marginBottom: '20px', fontWeight: '600' }}
-              >
-                ✅ Arka Planı Ekle
-              </button>
-            )}
 
             <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
               {(!ayarlar?.heroArkaplanlar || ayarlar.heroArkaplanlar.length === 0) && (
