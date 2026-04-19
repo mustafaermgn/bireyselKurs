@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { useAppStore } from '@/lib/store';
+import ImageUploader from '@/components/ImageUploader';
 
 export default function Kadro() {
   const { data: kadro, updateData } = useAppStore('kadro');
@@ -10,18 +11,26 @@ export default function Kadro() {
   const [newAvatar, setNewAvatar] = useState('👨‍🏫');
   const [newPhoto, setNewPhoto] = useState<string | null>(null);
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0];
-      setNewPhoto(URL.createObjectURL(file));
-    }
+  const handlePhotoUpload = (url: string) => {
+    setNewPhoto(url);
+  };
+
+  const handleDeletePhoto = () => {
+    setNewPhoto(null);
   };
 
   const addTeacher = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!newName || !newBranch) {
+      alert('Ad soyad ve branş zorunludur');
+      return;
+    }
     updateData([...kadro, { id: Date.now(), name: newName, branch: newBranch, avatar: newAvatar, photo: newPhoto }]);
     setIsModalOpen(false);
-    setNewName(''); setNewBranch(''); setNewAvatar('👨‍🏫'); setNewPhoto(null);
+    setNewName('');
+    setNewBranch('');
+    setNewAvatar('👨‍🏫');
+    setNewPhoto(null);
   };
 
   const deleteTeacher = (id: number) => {
@@ -62,31 +71,53 @@ export default function Kadro() {
 
       {isModalOpen && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 100, padding: '20px' }}>
-          <div style={{ background: 'white', padding: '30px', borderRadius: '8px', width: '100%', maxWidth: '400px', maxHeight: '90vh', overflowY: 'auto' }}>
+          <div style={{ background: 'white', padding: '30px', borderRadius: '8px', width: '100%', maxWidth: '500px', maxHeight: '90vh', overflowY: 'auto' }}>
             <h2 style={{ marginTop: 0, marginBottom: '20px' }}>Yeni Eğitmen Ekle</h2>
             <form onSubmit={addTeacher}>
-              <div style={{ marginBottom: '15px', textAlign: 'center' }}>
-                <div style={{ width: '100px', height: '100px', borderRadius: '50%', backgroundColor: '#e2e8f0', margin: '0 auto 10px auto', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', border: '2px dashed #cbd5e1', position: 'relative' }}>
-                  {newPhoto ? (
-                    <img src={newPhoto} alt="Önizleme" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  ) : (
-                    <span style={{ fontSize: '2rem' }}>{newAvatar}</span>
-                  )}
-                  <input type="file" accept="image/*" onChange={handlePhotoUpload} style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer' }} title="Fotoğraf Yükle" />
-                </div>
-                <p style={{ fontSize: '12px', color: '#64748b', margin: 0 }}>Fotoğraf yüklemek için tıklayın (İsteğe bağlı)</p>
-              </div>
+              <ImageUploader 
+                onImageUpload={handlePhotoUpload}
+                onImageDelete={handleDeletePhoto}
+                folder="kadro"
+                label="Eğitmen Fotoğrafı (İsteğe Bağlı)"
+                currentImage={newPhoto}
+              />
 
-              <input type="text" placeholder="Ad Soyad" value={newName} onChange={(e) => setNewName(e.target.value)} required style={{ width: '100%', padding: '10px', marginBottom: '15px', border: '1px solid #cbd5e1', borderRadius: '4px' }} />
-              <input type="text" placeholder="Branşı (Örn: Matematik)" value={newBranch} onChange={(e) => setNewBranch(e.target.value)} required style={{ width: '100%', padding: '10px', marginBottom: '15px', border: '1px solid #cbd5e1', borderRadius: '4px' }} />
-              <select value={newAvatar} onChange={(e) => setNewAvatar(e.target.value)} style={{ width: '100%', padding: '10px', marginBottom: '15px', border: '1px solid #cbd5e1', borderRadius: '4px' }}>
+              <input 
+                type="text" 
+                placeholder="Ad Soyad" 
+                value={newName} 
+                onChange={(e) => setNewName(e.target.value)} 
+                required 
+                style={{ width: '100%', padding: '10px', marginBottom: '15px', border: '1px solid #cbd5e1', borderRadius: '4px', boxSizing: 'border-box' }} 
+              />
+              <input 
+                type="text" 
+                placeholder="Branşı (Örn: Matematik)" 
+                value={newBranch} 
+                onChange={(e) => setNewBranch(e.target.value)} 
+                required 
+                style={{ width: '100%', padding: '10px', marginBottom: '15px', border: '1px solid #cbd5e1', borderRadius: '4px', boxSizing: 'border-box' }} 
+              />
+              <select 
+                value={newAvatar} 
+                onChange={(e) => setNewAvatar(e.target.value)} 
+                style={{ width: '100%', padding: '10px', marginBottom: '15px', border: '1px solid #cbd5e1', borderRadius: '4px', boxSizing: 'border-box' }}>
                 <option value="👨‍🏫">👨‍🏫 Erkek Avatar (Fotoğraf yoksa)</option>
                 <option value="👩‍🏫">👩‍🏫 Kadın Avatar (Fotoğraf yoksa)</option>
               </select>
               
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
-                <button type="button" onClick={() => setIsModalOpen(false)} style={{ padding: '10px 20px', background: '#e2e8f0', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>İptal</button>
-                <button type="submit" style={{ padding: '10px 20px', background: '#f16101', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Kaydet</button>
+                <button 
+                  type="button" 
+                  onClick={() => { setIsModalOpen(false); setNewName(''); setNewBranch(''); setNewAvatar('👨‍🏫'); setNewPhoto(null); }} 
+                  style={{ padding: '10px 20px', background: '#e2e8f0', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                  İptal
+                </button>
+                <button 
+                  type="submit" 
+                  style={{ padding: '10px 20px', background: '#f16101', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>
+                  Kaydet
+                </button>
               </div>
             </form>
           </div>
