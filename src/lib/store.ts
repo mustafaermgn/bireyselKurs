@@ -63,7 +63,14 @@ async function fetchFromFirebase<K extends keyof typeof defaultData>(key: K) {
       // Ayarlar is stored as a single document
       const docRef = doc(db, 'ayarlar', 'config');
       const docSnap = await getDoc(docRef);
-      return docSnap.exists() ? docSnap.data() : defaultData[key];
+      
+      if (docSnap.exists()) {
+        console.log('✅ Firebase\'ten ayarlar yüklendi:', docSnap.data());
+        return docSnap.data();
+      } else {
+        console.log('⚠️ Firebase\'de ayarlar dökümanı bulunamadı! Default veriler kullanılıyor.');
+        return defaultData[key];
+      }
     } else {
       // Other collections are stored as arrays
       const collectionRef = collection(db, getCollectionName(key));
@@ -72,10 +79,11 @@ async function fetchFromFirebase<K extends keyof typeof defaultData>(key: K) {
       querySnapshot.forEach((doc) => {
         data.push({ id: doc.id, ...doc.data() });
       });
+      console.log(`📦 ${key} Firebase'ten yüklendi (${data.length} kayıt)`);
       return data.length > 0 ? data : defaultData[key];
     }
   } catch (error) {
-    console.error(`Error fetching ${key} from Firebase:`, error);
+    console.error(`❌ Error fetching ${key} from Firebase:`, error);
     return defaultData[key];
   }
 }

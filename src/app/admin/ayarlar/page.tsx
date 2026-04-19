@@ -1,20 +1,45 @@
 "use client";
 import { useAppStore } from '@/lib/store';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ImageUploader from '@/components/ImageUploader';
 
 export default function Ayarlar() {
   const { data: ayarlar, updateData } = useAppStore('ayarlar');
   const [successMessage, setSuccessMessage] = useState('');
 
+  // Debug: Ayarlar yüklendi mi?
+  useEffect(() => {
+    console.log('🔍 Ayarlar sayfası yüklendi');
+    console.log('📦 ayarlar data:', ayarlar);
+    console.log('🔧 updateData var mı?', typeof updateData);
+  }, [ayarlar, updateData]);
+
   const handleHeroImageUpload = (url: string) => {
-    console.log('📸 Slayt fotoğrafı yüklendi:', url);
-    // Otomatik olarak Firebase'e kaydet
-    const currentImages = ayarlar?.heroImages || [];
-    const newImages = [...currentImages, url];
-    updateData({ ...ayarlar, heroImages: newImages });
-    setSuccessMessage('Slayt fotoğrafı başarıyla kaydedildi!');
-    setTimeout(() => setSuccessMessage(''), 3000);
+    console.log('=== BAŞLADI: Slayt fotoğrafı yükleniyor ===');
+    console.log('📸 URL:', url);
+    console.log('📦 Şu anki ayarlar:', ayarlar);
+    
+    try {
+      if (!ayarlar) {
+        console.error('❌ HATA: ayarlar null/undefined!');
+        return;
+      }
+
+      const currentImages = ayarlar?.heroImages || [];
+      console.log('✅ Mevcut görseller:', currentImages);
+      
+      const newImages = [...currentImages, url];
+      console.log('➕ Yeni görseller:', newImages);
+      
+      console.log('💾 updateData çağırılıyor...');
+      updateData({ ...ayarlar, heroImages: newImages });
+      
+      console.log('✅ updateData tamamlandı!');
+      setSuccessMessage('Slayt fotoğrafı başarıyla kaydedildi!');
+      setTimeout(() => setSuccessMessage(''), 3000);
+    } catch (error) {
+      console.error('❌ HATA YAKALANDI:', error);
+    }
   };
 
   const removeHeroImage = (indexToRemove: number) => {
