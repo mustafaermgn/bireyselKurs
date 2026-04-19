@@ -151,7 +151,7 @@ export default function Medya() {
             </div>
 
             <button onClick={() => deleteFile(file.id)} style={{ position: 'absolute', top: '20px', right: '20px', background: '#dc2626', color: 'white', border: 'none', borderRadius: '50%', width: '30px', height: '30px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 4px rgba(0,0,0,0.2)', fontSize: '18px' }}>×</button>
-            <a href={`/medya/${file.id}`} target="_blank" rel="noreferrer" style={{ position: 'absolute', top: '20px', left: '20px', background: 'var(--primary-color)', color: 'white', border: 'none', borderRadius: '6px', padding: '6px 10px', cursor: 'pointer', textDecoration: 'none', fontSize: '13px' }}>Sayfayı Gör</a>
+            <a href={`/galeri/${file.id}`} target="_blank" rel="noreferrer" style={{ position: 'absolute', top: '20px', left: '20px', background: 'var(--primary-color)', color: 'white', border: 'none', borderRadius: '6px', padding: '6px 10px', cursor: 'pointer', textDecoration: 'none', fontSize: '13px' }}>Sayfayı Gör</a>
           </div>
         ))}
       </div>
