@@ -1,6 +1,17 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { db } from './firebase';
+import {
+  collection,
+  getDocs,
+  setDoc,
+  deleteDoc,
+  doc,
+  writeBatch,
+  query,
+  getDoc,
+} from 'firebase/firestore';
 
 const defaultData = {
   duyurular: [{ id: 1 as number | string, title: 'YKS Deneme Sınavı', date: '2025-05-15', content: 'Türkiye geneli YKS deneme sınavımız 15 Mayıs\'ta yapılacaktır.' }],
@@ -40,23 +51,86 @@ const defaultData = {
   }
 };
 
+// Get collection name for a key
+const getCollectionName = (key: string): string => {
+  return key;
+};
+
+// Fetch data from Firestore
+async function fetchFromFirebase<K extends keyof typeof defaultData>(key: K) {
+  try {
+    if (key === 'ayarlar') {
+      // Ayarlar is stored as a single document
+      const docRef = doc(db, 'ayarlar', 'config');
+      const docSnap = await getDoc(docRef);
+      return docSnap.exists() ? docSnap.data() : defaultData[key];
+    } else {
+      // Other collections are stored as arrays
+      const collectionRef = collection(db, getCollectionName(key));
+      const querySnapshot = await getDocs(collectionRef);
+      const data: any[] = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ id: doc.id, ...doc.data() });
+      });
+      return data.length > 0 ? data : defaultData[key];
+    }
+  } catch (error) {
+    console.error(`Error fetching ${key} from Firebase:`, error);
+    return defaultData[key];
+  }
+}
+
+// Save data to Firestore
+async function saveToFirebase<K extends keyof typeof defaultData>(key: K, data: typeof defaultData[K]) {
+  try {
+    if (key === 'ayarlar') {
+      // Save ayarlar as a single document
+      const docRef = doc(db, 'ayarlar', 'config');
+      await setDoc(docRef, data);
+    } else {
+      // Save collections
+      const batch = writeBatch(db);
+      const collectionRef = collection(db, getCollectionName(key));
+
+      // Delete all existing documents first
+      const existingDocs = await getDocs(collectionRef);
+      existingDocs.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+
+      // Add new documents
+      (data as any[]).forEach((item) => {
+        const docRef = doc(collectionRef, String(item.id || ''));
+        batch.set(docRef, item);
+      });
+
+      await batch.commit();
+    }
+  } catch (error) {
+    console.error(`Error saving ${key} to Firebase:`, error);
+  }
+}
+
 export function useAppStore<K extends keyof typeof defaultData>(key: K) {
-  // Use defaultData immediately to prevent hydration mismatch for structural rendering
   const [data, setData] = useState<typeof defaultData[K]>(defaultData[key]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('bireyselkurs_' + key as string);
-    if (saved) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setData(JSON.parse(saved));
-    }
-    setIsLoaded(true);
+    const loadData = async () => {
+      // Try Firebase first
+      const firebaseData = await fetchFromFirebase(key);
+      setData(firebaseData as typeof defaultData[K]);
+      setIsLoaded(true);
+    };
+
+    loadData();
   }, [key]);
 
   const updateData = (newData: typeof defaultData[K]) => {
     setData(newData);
+    // Save to both Firebase and localStorage for offline access
     localStorage.setItem('bireyselkurs_' + key as string, JSON.stringify(newData));
+    saveToFirebase(key, newData);
     window.dispatchEvent(new Event('store-updated-' + key as string));
   };
 
