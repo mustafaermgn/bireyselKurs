@@ -89,9 +89,6 @@ export default function Navbar() {
           <Link href="/basarilar" className={`nav-link ${pathname === '/basarilar' ? 'active' : ''}`}>Başarılarımız</Link>
           <Link href="/galeri" className={`nav-link ${pathname === '/galeri' ? 'active' : ''}`}>Galeri</Link>
           <Link href="/iletisim" className={`nav-link ${pathname === '/iletisim' ? 'active' : ''}`}>İletişim</Link>
-          <Link href="/admin/login" className="btn btn-primary" style={{ padding: '8px 24px', boxShadow: '0 4px 14px rgba(241, 97, 1, 0.4)' }}>
-            Öğrenci Girişi
-          </Link>
         </nav>
       </div>
     </header>
