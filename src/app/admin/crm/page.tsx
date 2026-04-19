@@ -22,42 +22,44 @@ export default function CRM() {
   };
 
   return (
-    <div>
-      <h1 style={{ fontSize: '2rem', marginBottom: '2rem', color: '#0f172a' }}>Başvuru Yönetimi (CRM)</h1>
-      <div style={{ background: 'white', borderRadius: '12px', padding: '1.5rem', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '700px' }}>
+    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <h1 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#0f172a', fontWeight: '800' }}>Başvuru Yönetimi (CRM)</h1>
+      <div style={{ background: 'white', borderRadius: '12px', padding: '1rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', border: '1px solid #e2e8f0', overflowX: 'auto' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px', fontSize: '0.9rem' }}>
           <thead>
-            <tr style={{ borderBottom: '2px solid #e2e8f0', color: '#64748b' }}>
-              <th style={{ padding: '1rem' }}>Tarih</th>
-              <th style={{ padding: '1rem' }}>Ad Soyad</th>
-              <th style={{ padding: '1rem' }}>Telefon</th>
-              <th style={{ padding: '1rem' }}>Program</th>
-              <th style={{ padding: '1rem' }}>Durum</th>
-              <th style={{ padding: '1rem' }}>İşlem</th>
+            <tr style={{ borderBottom: '1px solid #e2e8f0', color: '#64748b' }}>
+              <th style={{ padding: '0.75rem 1rem' }}>Tarih</th>
+              <th style={{ padding: '0.75rem 1rem' }}>Ad Soyad</th>
+              <th style={{ padding: '0.75rem 1rem' }}>Telefon</th>
+              <th style={{ padding: '0.75rem 1rem' }}>Program</th>
+              <th style={{ padding: '0.75rem 1rem' }}>Durum</th>
+              <th style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>İşlemler</th>
             </tr>
           </thead>
           <tbody>
-            {leads.length === 0 && (<tr><td colSpan={6} style={{ padding: '15px', textAlign: 'center' }}>Henüz başvuru yok.</td></tr>)}
+            {leads.length === 0 && (<tr><td colSpan={6} style={{ padding: '30px', textAlign: 'center', color: '#94a3b8' }}>Henüz başvuru yok.</td></tr>)}
             {leads.map((lead: any) => {
               const statusStyle = getStatusColor(lead.status);
               return (
-                <tr key={lead.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                  <td style={{ padding: '1rem', color: '#64748b' }}>{lead.date}</td>
-                  <td style={{ padding: '1rem', fontWeight: '500', color: '#0f172a' }}>{lead.name}</td>
-                  <td style={{ padding: '1rem', color: '#475569' }}>{lead.phone}</td>
-                  <td style={{ padding: '1rem', color: '#475569' }}>{lead.interest}</td>
-                  <td style={{ padding: '1rem' }}>
-                    <span style={{ padding: '0.25rem 0.75rem', borderRadius: '9999px', fontSize: '0.85rem', fontWeight: '600', backgroundColor: statusStyle.bg, color: statusStyle.text }}>
+                <tr key={lead.id} style={{ borderBottom: '1px solid #f8fafc' }} onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f8fafc'} onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}>
+                  <td style={{ padding: '0.75rem 1rem', color: '#64748b', fontSize: '0.85rem' }}>{lead.date}</td>
+                  <td style={{ padding: '0.75rem 1rem', fontWeight: '600', color: '#1e293b' }}>{lead.name}</td>
+                  <td style={{ padding: '0.75rem 1rem', color: '#475569' }}>{lead.phone}</td>
+                  <td style={{ padding: '0.75rem 1rem', color: '#475569' }}>{lead.interest}</td>
+                  <td style={{ padding: '0.75rem 1rem' }}>
+                    <span style={{ padding: '0.2rem 0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: '700', backgroundColor: statusStyle.bg, color: statusStyle.text, whiteSpace: 'nowrap' }}>
                       {lead.status}
                     </span>
                   </td>
-                  <td style={{ padding: '1rem', display: 'flex', gap: '10px' }}>
-                    <select value={lead.status} onChange={(e) => updateStatus(lead.id, e.target.value)} style={{ padding: '0.4rem', borderRadius: '6px', border: '1px solid #cbd5e1', outline: 'none' }}>
-                      <option value="Bekliyor">Bekliyor</option>
-                      <option value="Arandı">Arandı</option>
-                      <option value="Kayıt Oldu">Kayıt Oldu</option>
-                    </select>
-                    <button onClick={() => deleteLead(lead.id)} style={{ padding: '0.4rem 0.8rem', background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>Sil</button>
+                  <td style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>
+                    <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+                      <select value={lead.status} onChange={(e) => updateStatus(lead.id, e.target.value)} style={{ padding: '0.3rem', borderRadius: '4px', border: '1px solid #cbd5e1', outline: 'none', fontSize: '0.85rem' }}>
+                        <option value="Bekliyor">Bekle</option>
+                        <option value="Arandı">Ara</option>
+                        <option value="Kayıt Oldu">Kayıt</option>
+                      </select>
+                      <button onClick={() => deleteLead(lead.id)} style={{ padding: '0.3rem 0.6rem', background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '0.85rem' }}>Sil</button>
+                    </div>
                   </td>
                 </tr>
               );

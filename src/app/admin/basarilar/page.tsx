@@ -40,32 +40,32 @@ export default function Basarilar() {
   };
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '10px' }}>
-        <h1 style={{ fontSize: '2rem', color: '#0f172a', margin: 0 }}>Öğrenci Başarıları Yönetimi</h1>
-        <button onClick={() => setIsModalOpen(true)} style={{ background: '#f16101', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>+ Yeni Başarı Ekle</button>
+    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '10px' }}>
+        <h1 style={{ fontSize: '1.5rem', color: '#0f172a', margin: 0, fontWeight: '800' }}>Başarı Yönetimi</h1>
+        <button onClick={() => setIsModalOpen(true)} style={{ background: '#f16101', color: 'white', padding: '8px 20px', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '700' }}>+ Yeni Başarı Ekle</button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
+      <div className="responsive-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '15px' }}>
         {basarilar.length === 0 ? (
-          <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', gridColumn: '1 / -1' }}>
-            <p>Şu anda kayıtlı başarı bulunmamaktadır.</p>
+          <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', gridColumn: '1 / -1', textAlign: 'center', color: '#64748b' }}>
+            Şu anda kayıtlı başarı bulunmamaktadır.
           </div>
         ) : (
           basarilar.map((b: any) => (
-            <div key={b.id} style={{ background: 'white', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', textAlign: 'center', overflow: 'hidden', position: 'relative' }}>
-              <button onClick={() => deleteBasari(b.id)} style={{ position: 'absolute', top: '10px', right: '10px', background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '4px', padding: '5px 10px', cursor: 'pointer', zIndex: 10 }}>Sil</button>
-              <div style={{ height: '200px', backgroundColor: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '4rem', overflow: 'hidden' }}>
+            <div key={b.id} style={{ background: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', textAlign: 'center', overflow: 'hidden', position: 'relative', border: '1px solid #e2e8f0' }}>
+              <button onClick={() => deleteBasari(b.id)} style={{ position: 'absolute', top: '8px', right: '8px', background: 'rgba(255,255,255,0.9)', color: '#dc2626', border: 'none', borderRadius: '50%', width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10, fontSize: '16px', fontWeight: 'bold' }}>×</button>
+              <div style={{ height: '150px', backgroundColor: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', overflow: 'hidden' }}>
                 {b.photo ? (
                   <img src={b.photo} alt={b.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
-                  <span style={{ fontSize: '4rem' }}>🎓</span>
+                  <span style={{ opacity: 0.5 }}>🎓</span>
                 )}
               </div>
-              <div style={{ padding: '20px' }}>
-                <h3 style={{ margin: '0 0 5px 0', color: '#0f172a', fontSize: '1.2rem' }}>{b.name}</h3>
-                <p style={{ margin: '0 0 10px 0', color: '#f16101', fontWeight: 'bold' }}>{b.exam} - {b.year}</p>
-                <p style={{ margin: 0, fontSize: '0.9rem', color: '#64748b', background: '#f8fafc', padding: '10px', borderRadius: '4px' }}>{b.result}</p>
+              <div style={{ padding: '12px' }}>
+                <h3 style={{ margin: '0 0 4px 0', color: '#1e293b', fontSize: '0.95rem', fontWeight: '800' }}>{b.name}</h3>
+                <p style={{ margin: '0 0 8px 0', color: '#f16101', fontWeight: '700', fontSize: '0.75rem' }}>{b.exam} - {b.year}</p>
+                <p style={{ margin: 0, fontSize: '0.7rem', color: '#64748b', background: '#f8fafc', padding: '6px', borderRadius: '4px', fontWeight: '600' }}>{b.result}</p>
               </div>
             </div>
           ))

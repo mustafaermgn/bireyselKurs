@@ -39,37 +39,37 @@ export default function Blog() {
   };
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '10px' }}>
-        <h1 style={{ fontSize: '2rem', color: '#0f172a', margin: 0 }}>Etkinlik ve Paylaşımlar</h1>
-        <button onClick={() => setIsModalOpen(true)} style={{ background: '#f16101', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>+ Yeni Paylaşım</button>
+    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '10px' }}>
+        <h1 style={{ fontSize: '1.5rem', color: '#0f172a', margin: 0, fontWeight: '800' }}>Etkinlik ve Paylaşımlar</h1>
+        <button onClick={() => setIsModalOpen(true)} style={{ background: '#f16101', color: 'white', padding: '8px 20px', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '700' }}>+ Yeni Paylaşım</button>
       </div>
 
-      <div style={{ background: 'white', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', overflowX: 'auto' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>
+      <div style={{ background: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflowX: 'auto', border: '1px solid #e2e8f0' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px', fontSize: '0.9rem' }}>
           <thead>
-            <tr style={{ borderBottom: '1px solid #cbd5e1', background: '#f8fafc' }}>
-              <th style={{ padding: '15px', width: '80px' }}>Görsel</th>
-              <th style={{ padding: '15px' }}>Başlık</th>
-              <th style={{ padding: '15px' }}>Tarih</th>
-              <th style={{ padding: '15px' }}>İşlem</th>
+            <tr style={{ borderBottom: '1px solid #e2e8f0', background: '#f8fafc', color: '#64748b' }}>
+              <th style={{ padding: '0.75rem 1rem', width: '60px' }}>Görsel</th>
+              <th style={{ padding: '0.75rem 1rem' }}>Başlık</th>
+              <th style={{ padding: '0.75rem 1rem' }}>Tarih</th>
+              <th style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>İşlemler</th>
             </tr>
           </thead>
           <tbody>
-            {blogs.length === 0 && (<tr><td colSpan={4} style={{ padding: '15px', textAlign: 'center' }}>Henüz paylaşım eklenmedi.</td></tr>)}
+            {blogs.length === 0 && (<tr><td colSpan={4} style={{ padding: '30px', textAlign: 'center', color: '#94a3b8' }}>Henüz paylaşım eklenmedi.</td></tr>)}
             {blogs.map((b: any) => (
-              <tr key={b.id} style={{ borderBottom: '1px solid #f1f5f9' }}>
-                <td style={{ padding: '15px' }}>
+              <tr key={b.id} style={{ borderBottom: '1px solid #f8fafc' }} onMouseEnter={e => e.currentTarget.style.backgroundColor = '#f8fafc'} onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}>
+                <td style={{ padding: '0.75rem 1rem' }}>
                   {b.photo ? (
-                    <img src={b.photo} alt="Görsel" style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }} />
+                    <img src={b.photo} alt="Görsel" style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '6px' }} />
                   ) : (
-                    <div style={{ width: '50px', height: '50px', background: '#e2e8f0', borderRadius: '4px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>📷</div>
+                    <div style={{ width: '40px', height: '40px', background: '#f1f5f9', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' }}>📷</div>
                   )}
                 </td>
-                <td style={{ padding: '15px', fontWeight: '500' }}>{b.title}</td>
-                <td style={{ padding: '15px', color: '#64748b' }}>{b.date}</td>
-                <td style={{ padding: '15px' }}>
-                  <button onClick={() => deleteBlog(b.id)} style={{ background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '4px', padding: '5px 10px', cursor: 'pointer' }}>Sil</button>
+                <td style={{ padding: '0.75rem 1rem', fontWeight: '600', color: '#1e293b' }}>{b.title}</td>
+                <td style={{ padding: '0.75rem 1rem', color: '#64748b' }}>{b.date}</td>
+                <td style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>
+                  <button onClick={() => deleteBlog(b.id)} style={{ background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '4px', padding: '0.3rem 0.6rem', cursor: 'pointer', fontSize: '0.85rem' }}>Sil</button>
                 </td>
               </tr>
             ))}

@@ -69,111 +69,118 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
       {/* Sidebar */}
       <aside style={{ 
-        width: '250px', 
-        background: '#1e293b', 
+        width: '240px', 
+        background: '#0f172a', 
         color: 'white', 
-        padding: '2rem 1rem', 
+        padding: '1.5rem 0.75rem', 
         display: 'flex', 
         flexDirection: 'column',
         position: 'fixed',
-        left: sidebarOpen ? 0 : '-250px',
+        left: sidebarOpen ? 0 : '-240px',
         top: 0,
         bottom: 0,
         zIndex: 50,
-        transition: 'left 0.3s ease'
+        boxShadow: '4px 0 10px rgba(0,0,0,0.1)',
+        transition: 'left 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
       }} className="admin-sidebar">
-        <div style={{ marginBottom: '3rem', padding: '0 1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ marginBottom: '2rem', padding: '0 0.75rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <h2 style={{ fontSize: '1.5rem', color: '#38bdf8' }}>Admin Panel</h2>
-            <p style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Bireysel Kurs</p>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: '800', color: '#38bdf8', letterSpacing: '-0.5px' }}>BİREYSEL</h2>
+            <p style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: '600' }}>YÖNETİM PANELİ</p>
           </div>
           <button 
             className="mobile-close-btn" 
-            style={{ background: 'none', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer' }}
+            style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: 'white', width: '32px', height: '32px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
             onClick={() => setSidebarOpen(false)}
           >
             ×
           </button>
         </div>
 
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           {[
-            { path: '/admin/crm', icon: '📝', label: 'Başvuru CRM' },
-            { path: '/admin/kadro', icon: '👨‍🏫', label: 'Eğitim Kadrosu' },
-            { path: '/admin/basarilar', icon: '🏆', label: 'Başarılarımız' },
-            { path: '/admin/duyurular', icon: '📢', label: 'Duyurular' },
-            { path: '/admin/kampanyalar', icon: '💰', label: 'Kampanyalar' },
-            { path: '/admin/medya', icon: '🖼️', label: 'Medya' },
-            { path: '/admin/blog', icon: '📰', label: 'Etkinlik / Haberler' },
-            { path: '/admin/ayarlar', icon: '⚙️', label: 'Site Ayarları' },
+            { path: '/admin/crm', label: 'Başvurular' },
+            { path: '/admin/kadro', label: 'Eğitim Kadrosu' },
+            { path: '/admin/basarilar', label: 'Başarılarımız' },
+            { path: '/admin/duyurular', label: 'Duyurular' },
+            { path: '/admin/kampanyalar', label: 'Kampanyalar' },
+            { path: '/admin/medya', label: 'Medya' },
+            { path: '/admin/blog', label: 'Haberler' },
+            { path: '/admin/ayarlar', label: 'Site Ayarları' },
           ].map(item => (
             <Link 
               key={item.path}
               href={item.path} 
               onClick={() => setSidebarOpen(false)}
               style={{ 
-                padding: '0.75rem 1rem', 
-                borderRadius: '8px', 
+                padding: '0.6rem 0.75rem', 
+                borderRadius: '6px', 
                 background: pathname === item.path ? '#334155' : 'transparent', 
-                color: 'white', 
+                color: pathname === item.path ? 'white' : '#94a3b8', 
                 display: 'flex', 
                 alignItems: 'center', 
-                gap: '0.75rem', 
+                fontSize: '0.9rem',
+                fontWeight: pathname === item.path ? '600' : '500',
                 transition: 'all 0.2s' 
               }}
+              onMouseEnter={(e) => { if (pathname !== item.path) e.currentTarget.style.color = 'white'; }}
+              onMouseLeave={(e) => { if (pathname !== item.path) e.currentTarget.style.color = '#94a3b8'; }}
             >
-              <span>{item.icon}</span> {item.label}
+              {item.label}
             </Link>
           ))}
         </nav>
 
-        <div style={{ marginTop: 'auto', padding: '0 1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-          <Link href="/" style={{ color: '#94a3b8', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span>←</span> Siteye Dön
+        <div style={{ marginTop: 'auto', padding: '1rem 0.75rem', borderTop: '1px solid #334155', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+          <Link href="/" style={{ color: '#94a3b8', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+            Siteye Dön
           </Link>
           <button 
             onClick={handleLogout}
             style={{ 
               color: '#f87171', 
-              fontSize: '0.9rem', 
+              fontSize: '0.85rem', 
               display: 'flex', 
               alignItems: 'center', 
               gap: '0.5rem',
               background: 'none',
               border: 'none',
+              padding: 0,
               cursor: 'pointer',
-              textAlign: 'left'
+              textAlign: 'left',
+              fontWeight: '600'
             }}
           >
-            <span>🚪</span> Çıkış Yap
+            Çıkış Yap
           </button>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main style={{ marginLeft: 0, width: '100%', display: 'flex', flexDirection: 'column', height: '100vh', minWidth: 0, overflowX: 'hidden' }} className="admin-main">
+      <main style={{ marginLeft: 0, width: '100%', display: 'flex', flexDirection: 'column', minHeight: '100vh', minWidth: 0 }} className="admin-main">
         {/* Header */}
-        <header style={{ background: 'white', padding: '1rem 2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #cbd5e1', flexShrink: 0 }}>
+        <header style={{ background: 'white', padding: '0.75rem 1.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e2e8f0', position: 'sticky', top: 0, zIndex: 30, boxShadow: '0 1px 2px rgba(0,0,0,0.03)' }}>
           <button 
             className="admin-menu-toggle"
-            style={{ background: 'none', border: 'none', fontSize: '1.5rem', cursor: 'pointer' }}
+            style={{ background: '#f1f5f9', border: 'none', width: '36px', height: '36px', borderRadius: '6px', fontSize: '1.25rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             onClick={() => setSidebarOpen(true)}
           >
             ☰
           </button>
           
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginLeft: 'auto' }}>
-            <span style={{ color: '#475569', fontWeight: '500' }}>
-              {user?.email || 'Admin Kullanıcısı'}
-            </span>
-            <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: '#cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              👤
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginLeft: 'auto' }}>
+            <div style={{ textAlign: 'right', display: 'none' }} className="admin-user-info">
+              <p style={{ margin: 0, fontSize: '0.85rem', fontWeight: '700', color: '#1e293b' }}>Yönetici</p>
+              <p style={{ margin: 0, fontSize: '0.75rem', color: '#64748b' }}>{user?.email?.split('@')[0]}</p>
+            </div>
+            <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: '#e0f2fe', color: '#0369a1', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem', fontWeight: 'bold' }}>
+              {user?.email?.[0].toUpperCase() || 'A'}
             </div>
           </div>
         </header>
 
         {/* Page Content */}
-        <div style={{ padding: '2rem', overflowY: 'auto', flex: 1, minWidth: 0 }}>
+        <div style={{ padding: '1.5rem', flex: 1, minWidth: 0, maxWidth: '100%' }}>
           {children}
         </div>
       </main>
@@ -183,15 +190,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         @media (min-width: 992px) {
           .admin-sidebar { left: 0 !important; }
           .admin-main { 
-            margin-left: 250px !important; 
-            width: calc(100% - 250px) !important; 
+            margin-left: 240px !important; 
+            width: calc(100% - 240px) !important; 
           }
           .admin-menu-toggle { display: none !important; }
           .mobile-close-btn { display: none !important; }
+          .admin-user-info { display: block !important; }
         }
         @media (max-width: 767px) {
           .admin-main > div { padding: 1rem !important; }
-          header { padding: 1rem !important; }
+          header { padding: 0.75rem 1rem !important; }
         }
       `}} />
     </div>

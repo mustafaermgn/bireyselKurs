@@ -105,22 +105,27 @@ export default function Ayarlar() {
   };
 
   return (
-    <div>
-      <h1 style={{ fontSize: '2rem', marginBottom: '2rem', color: '#0f172a' }}>Site Ayarları</h1>
+    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+        <h1 style={{ fontSize: '1.5rem', margin: 0, color: '#0f172a', fontWeight: '800' }}>Site Ayarları</h1>
+        <button onClick={saveTextChanges} className="btn btn-primary" style={{ padding: '8px 20px', fontSize: '0.9rem' }}>
+          💾 Değişiklikleri Kaydet
+        </button>
+      </div>
 
       {successMessage && (
-        <div style={{ position: 'sticky', top: '20px', zIndex: 1000, background: '#dcfce3', color: '#166534', padding: '15px', borderRadius: '8px', marginBottom: '20px', fontWeight: 'bold', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+        <div style={{ position: 'fixed', top: '80px', right: '20px', zIndex: 1000, background: '#dcfce3', color: '#166534', padding: '12px 24px', borderRadius: '8px', fontWeight: 'bold', boxShadow: '0 4px 12px rgba(0,0,0,0.1)', border: '1px solid #bbf7d0' }}>
           ✅ {successMessage}
         </div>
       )}
 
-      <div className="grid grid-cols-1" style={{ gap: '30px' }}>
+      <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '20px', alignItems: 'start' }}>
         
         {/* Görsel Ayarları */}
-        <div style={{ background: 'white', padding: '30px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
-          <h2 style={{ fontSize: '1.4rem', marginBottom: '20px', borderBottom: '2px solid #e2e8f0', paddingBottom: '10px', color: 'var(--primary-color)' }}>📸 Görsel Ayarları</h2>
+        <div style={{ background: 'white', padding: '20px', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', border: '1px solid #e2e8f0' }}>
+          <h2 style={{ fontSize: '1.1rem', marginBottom: '15px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px', color: '#1e293b', fontWeight: '700' }}>📸 Görsel Ayarları</h2>
           
-          <div style={{ marginBottom: '40px' }}>
+          <div style={{ marginBottom: '25px' }}>
             <label style={labelStyle}>
               Anasayfa Slayt Fotoğrafları (Yuvarlak Alan)
             </label>
@@ -134,19 +139,19 @@ export default function Ayarlar() {
               label="Slayt Fotoğrafı Seç"
             />
 
-            <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '10px' }}>
               {(!ayarlar?.heroImages || ayarlar.heroImages.length === 0) && (
-                <div style={{ padding: '20px', background: '#f8fafc', border: '2px dashed #cbd5e1', borderRadius: '8px', color: '#94a3b8', width: '100%', textAlign: 'center' }}>
+                <div style={{ padding: '15px', background: '#f8fafc', border: '1px dashed #cbd5e1', borderRadius: '8px', color: '#94a3b8', width: '100%', textAlign: 'center', fontSize: '13px' }}>
                   Henüz fotoğraf yüklenmemiş.
                 </div>
               )}
               
               {ayarlar?.heroImages?.map((img: string, index: number) => (
-                <div key={index} style={{ position: 'relative', width: '120px', height: '120px', borderRadius: '50%', backgroundColor: '#f16101', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', border: '3px solid white' }}>
+                <div key={index} style={{ position: 'relative', width: '80px', height: '80px', borderRadius: '50%', backgroundColor: '#f16101', overflow: 'hidden', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', border: '2px solid white' }}>
                   <img src={img} alt={`Kapak ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <button 
                     onClick={() => removeHeroImage(index)}
-                    style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', background: 'rgba(220, 38, 38, 0.7)', color: 'white', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: '0', transition: 'opacity 0.2s', cursor: 'pointer', fontWeight: 'bold' }}
+                    style={{ position: 'absolute', inset: 0, background: 'rgba(220, 38, 38, 0.8)', color: 'white', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: '0', transition: 'opacity 0.2s', cursor: 'pointer', fontSize: '12px', fontWeight: 'bold' }}
                     onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
                     onMouseLeave={(e) => e.currentTarget.style.opacity = '0'}
                   >
@@ -157,16 +162,14 @@ export default function Ayarlar() {
             </div>
           </div>
 
-          <div style={{ paddingTop: '20px', borderTop: '1px solid #e2e8f0', marginBottom: '20px' }}>
-            <label style={labelStyle}>
-              Kurum Logosu (Üst Menü ve Açılış Ekranı)
-            </label>
-            <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', marginTop: '15px' }}>
-              <div style={{ width: '100px', height: '100px', borderRadius: '8px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed #cbd5e1', overflow: 'hidden' }}>
+          <div style={{ paddingTop: '15px', borderTop: '1px solid #f1f5f9', marginBottom: '20px' }}>
+            <label style={labelStyle}>Kurum Logosu</label>
+            <div style={{ display: 'flex', gap: '15px', alignItems: 'center', marginTop: '10px' }}>
+              <div style={{ width: '60px', height: '60px', borderRadius: '8px', backgroundColor: '#f8fafc', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e2e8f0', overflow: 'hidden', flexShrink: 0 }}>
                 {ayarlar?.logo ? (
-                  <img src={ayarlar.logo} alt="Logo Önizleme" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                  <img src={ayarlar.logo} alt="Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                 ) : (
-                  "LOGO"
+                  <span style={{ fontSize: '10px', color: '#94a3b8' }}>LOGO</span>
                 )}
               </div>
               <div style={{ flex: 1 }}>
@@ -178,45 +181,21 @@ export default function Ayarlar() {
                     setTimeout(() => setSuccessMessage(''), 3000);
                   }}
                   folder="ayarlar-logo"
-                  label="Logo Yükle"
+                  label="Logo Değiştir"
                   currentImage={ayarlar?.logo}
                 />
               </div>
             </div>
           </div>
 
-          <div style={{ paddingTop: '20px', borderTop: '1px solid #e2e8f0' }}>
-            <label style={labelStyle}>
-              Anasayfa Arka Plan Görselleri (Slayt)
-            </label>
-            <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '15px' }}>
-              Anasayfanın en üstündeki düz lacivert alan yerine, birden fazla arka plan fotoğrafı ekleyerek otomatik dönen ve elle kaydırılabilen bir slayt oluşturabilirsiniz.
-            </p>
-
-            <ImageUploader 
-              onImageUpload={handleBgImageUpload}
-              folder="ayarlar-bg"
-              label="Arka Plan Fotoğrafı Seç"
-            />
-
-            <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
-              {(!ayarlar?.heroArkaplanlar || ayarlar.heroArkaplanlar.length === 0) && (
-                <div style={{ padding: '20px', background: '#f8fafc', border: '2px dashed #cbd5e1', borderRadius: '8px', color: '#94a3b8', width: '100%', textAlign: 'center' }}>
-                  Hiç arka plan yüklenmemiş. Standart lacivert renk gösterilecek.
-                </div>
-              )}
-              
+          <div style={{ paddingTop: '15px', borderTop: '1px solid #f1f5f9' }}>
+            <label style={labelStyle}>Anasayfa Arka Plan Slaytı</label>
+            <ImageUploader onImageUpload={handleBgImageUpload} folder="ayarlar-bg" label="Fotoğraf Ekle" />
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '10px' }}>
               {ayarlar?.heroArkaplanlar?.map((img: string, index: number) => (
-                <div key={index} style={{ position: 'relative', width: '200px', height: '120px', borderRadius: '8px', backgroundColor: '#012237', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', border: '2px solid #cbd5e1' }}>
-                  <img src={img} alt={`Arka Plan ${index + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  <button 
-                    onClick={() => removeBgImage(index)}
-                    style={{ position: 'absolute', top: '0', left: '0', width: '100%', height: '100%', background: 'rgba(220, 38, 38, 0.7)', color: 'white', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: '0', transition: 'opacity 0.2s', cursor: 'pointer', fontWeight: 'bold' }}
-                    onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                    onMouseLeave={(e) => e.currentTarget.style.opacity = '0'}
-                  >
-                    SİL
-                  </button>
+                <div key={index} style={{ position: 'relative', width: '100px', height: '60px', borderRadius: '6px', overflow: 'hidden', border: '1px solid #e2e8f0' }}>
+                  <img src={img} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <button onClick={() => removeBgImage(index)} style={{ position: 'absolute', inset: 0, background: 'rgba(220, 38, 38, 0.8)', color: 'white', border: 'none', opacity: 0, cursor: 'pointer', fontWeight: 'bold', fontSize: '11px' }} onMouseEnter={e => e.currentTarget.style.opacity = 1} onMouseLeave={e => e.currentTarget.style.opacity = 0}>SİL</button>
                 </div>
               ))}
             </div>
@@ -224,96 +203,64 @@ export default function Ayarlar() {
         </div>
 
         {/* Metin Ayarları */}
-        <div style={{ background: 'white', padding: '30px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
-          <h2 style={{ fontSize: '1.4rem', marginBottom: '20px', borderBottom: '2px solid #e2e8f0', paddingBottom: '10px', color: 'var(--primary-color)' }}>✍️ Anasayfa Metinleri</h2>
-          <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '25px' }}>
-            Sitenizin anasayfasında görünen tüm kurumsal yazıları buradan istediğiniz gibi değiştirebilirsiniz. Yapay zeka izlenimi bırakmamak için kendi samimi ve profesyonel dilinizi kullanabilirsiniz.
-          </p>
-
-          <div style={{ marginBottom: '30px', background: '#f8fafc', padding: '20px', borderRadius: '8px' }}>
-            <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', color: '#334155' }}>Açılış (Hero) Bölümü</h3>
-            <label style={labelStyle}>Üst Küçük Başlık</label>
-            <input type="text" name="heroUstBaslik" value={ayarlar?.heroUstBaslik || ''} onChange={handleChange} style={inputStyle} placeholder="SİLOPİ BİREYSEL KURS MERKEZİ" />
-            
-            <label style={labelStyle}>Ana Büyük Başlık</label>
-            <input type="text" name="heroAnaBaslik" value={ayarlar?.heroAnaBaslik || ''} onChange={handleChange} style={inputStyle} placeholder="Geleceğinizi Şansa Bırakmayın." />
-            
-            <label style={labelStyle}>Açıklama Metni</label>
-            <textarea name="heroAciklama" value={ayarlar?.heroAciklama || ''} onChange={handleChange} style={{...inputStyle, height: '80px', resize: 'vertical'}} placeholder="25 yıllık tecrübemizle..." />
-          </div>
-
-          <div style={{ marginBottom: '30px', background: '#f8fafc', padding: '20px', borderRadius: '8px' }}>
-            <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', color: '#334155' }}>3&apos;lü Bilgi Kutucukları (Özelliklerimiz)</h3>
-            
-            <div className="grid grid-cols-3" style={{ gap: '15px' }}>
-              <div>
-                <label style={labelStyle}>1. Kutu Başlık</label>
-                <input type="text" name="kutu1Baslik" value={ayarlar?.kutu1Baslik || ''} onChange={handleChange} style={inputStyle} />
-                <label style={labelStyle}>1. Kutu Açıklama</label>
-                <textarea name="kutu1Aciklama" value={ayarlar?.kutu1Aciklama || ''} onChange={handleChange} style={{...inputStyle, height: '80px'}} />
+        <div style={{ background: 'white', padding: '20px', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', border: '1px solid #e2e8f0' }}>
+          <h2 style={{ fontSize: '1.1rem', marginBottom: '15px', borderBottom: '1px solid #f1f5f9', paddingBottom: '10px', color: '#1e293b', fontWeight: '700' }}>✍️ Site Metinleri</h2>
+          
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div style={{ background: '#f8fafc', padding: '15px', borderRadius: '8px', border: '1px solid #f1f5f9' }}>
+              <h3 style={{ fontSize: '0.95rem', marginBottom: '12px', color: '#334155', fontWeight: '700' }}>Açılış (Hero) Bölümü</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '10px' }}>
+                <div>
+                  <label style={labelStyle}>Üst Başlık</label>
+                  <input type="text" name="heroUstBaslik" value={ayarlar?.heroUstBaslik || ''} onChange={handleChange} style={{...inputStyle, marginBottom: '8px'}} />
+                </div>
+                <div>
+                  <label style={labelStyle}>Ana Başlık</label>
+                  <input type="text" name="heroAnaBaslik" value={ayarlar?.heroAnaBaslik || ''} onChange={handleChange} style={{...inputStyle, marginBottom: '8px'}} />
+                </div>
               </div>
-              <div>
-                <label style={labelStyle}>2. Kutu Başlık</label>
-                <input type="text" name="kutu2Baslik" value={ayarlar?.kutu2Baslik || ''} onChange={handleChange} style={inputStyle} />
-                <label style={labelStyle}>2. Kutu Açıklama</label>
-                <textarea name="kutu2Aciklama" value={ayarlar?.kutu2Aciklama || ''} onChange={handleChange} style={{...inputStyle, height: '80px'}} />
-              </div>
-              <div>
-                <label style={labelStyle}>3. Kutu Başlık</label>
-                <input type="text" name="kutu3Baslik" value={ayarlar?.kutu3Baslik || ''} onChange={handleChange} style={inputStyle} />
-                <label style={labelStyle}>3. Kutu Açıklama</label>
-                <textarea name="kutu3Aciklama" value={ayarlar?.kutu3Aciklama || ''} onChange={handleChange} style={{...inputStyle, height: '80px'}} />
-              </div>
+              <label style={labelStyle}>Açıklama</label>
+              <textarea name="heroAciklama" value={ayarlar?.heroAciklama || ''} onChange={handleChange} style={{...inputStyle, height: '60px', resize: 'none', marginBottom: 0}} />
             </div>
-          </div>
 
-          <div style={{ marginBottom: '30px', background: '#f8fafc', padding: '20px', borderRadius: '8px' }}>
-            <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', color: '#334155' }}>Kayıt Çağrısı (En Alt Bölüm)</h3>
-            <label style={labelStyle}>Kayıt Başlığı</label>
-            <input type="text" name="ctaBaslik" value={ayarlar?.ctaBaslik || ''} onChange={handleChange} style={inputStyle} placeholder="Kaydınızı Şimdi Yaptırın" />
-            
-            <label style={labelStyle}>Kayıt Açıklaması</label>
-            <textarea name="ctaAciklama" value={ayarlar?.ctaAciklama || ''} onChange={handleChange} style={{...inputStyle, height: '80px'}} placeholder="Erken kayıt avantajlarından..." />
-          </div>
-
-          <div style={{ marginBottom: '30px', background: '#f8fafc', padding: '20px', borderRadius: '8px' }}>
-            <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', color: '#334155' }}>Kurum Bilgileri & Özellikler</h3>
-            
-            <label style={labelStyle}>Kurum Başlığı</label>
-            <input type="text" name="kurumBaslik" value={ayarlar?.kurumBaslik || ''} onChange={handleChange} style={inputStyle} />
-            
-            <label style={labelStyle}>Kurum Tanıtım Görseli</label>
-            <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', marginBottom: '20px', background: 'white', padding: '15px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
-              <div style={{ width: '150px', height: '100px', borderRadius: '8px', overflow: 'hidden', backgroundColor: '#f8fafc', border: '1px solid #cbd5e1' }}>
-                {ayarlar?.kurumGorsel ? (
-                  <img src={ayarlar.kurumGorsel} alt="Kurum Görsel" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                ) : (
-                  <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8', fontSize: '12px' }}>Görsel Yok</div>
-                )}
-              </div>
-              <div style={{ flex: 1 }}>
-                <ImageUploader 
-                  onImageUpload={(url) => {
-                    updateData({ ...ayarlar, kurumGorsel: url });
-                    setSuccessMessage('Kurum görseli güncellendi!');
-                    setTimeout(() => setSuccessMessage(''), 3000);
-                  }}
-                  folder="kurum-tanitim"
-                  label="Kurum Görseli Değiştir"
-                  currentImage={ayarlar?.kurumGorsel}
-                />
+            <div style={{ background: '#f8fafc', padding: '15px', borderRadius: '8px', border: '1px solid #f1f5f9' }}>
+              <h3 style={{ fontSize: '0.95rem', marginBottom: '12px', color: '#334155', fontWeight: '700' }}>Bilgi Kutucukları</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '10px' }}>
+                {[1, 2, 3].map(i => (
+                  <div key={i}>
+                    <label style={labelStyle}>{i}. Başlık</label>
+                    <input type="text" name={`kutu${i}Baslik`} value={ayarlar?.[`kutu${i}Baslik`] || ''} onChange={handleChange} style={{...inputStyle, padding: '8px', fontSize: '13px'}} />
+                  </div>
+                ))}
               </div>
             </div>
 
-            <label style={labelStyle}>Kurum Genel Açıklama</label>
-            <textarea name="kurumAciklama" value={ayarlar?.kurumAciklama || ''} onChange={handleChange} style={{...inputStyle, height: '200px'}} />
+            <div style={{ background: '#f8fafc', padding: '15px', borderRadius: '8px', border: '1px solid #f1f5f9' }}>
+              <h3 style={{ fontSize: '0.95rem', marginBottom: '12px', color: '#334155', fontWeight: '700' }}>Kurum & Kayıt Bilgileri</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '10px', marginBottom: '10px' }}>
+                <div>
+                  <label style={labelStyle}>Kurum Başlığı</label>
+                  <input type="text" name="kurumBaslik" value={ayarlar?.kurumBaslik || ''} onChange={handleChange} style={inputStyle} />
+                </div>
+                <div>
+                  <label style={labelStyle}>Kayıt Başlığı</label>
+                  <input type="text" name="ctaBaslik" value={ayarlar?.ctaBaslik || ''} onChange={handleChange} style={inputStyle} />
+                </div>
+              </div>
+              <label style={labelStyle}>Kurum Açıklama</label>
+              <textarea name="kurumAciklama" value={ayarlar?.kurumAciklama || ''} onChange={handleChange} style={{...inputStyle, height: '80px', marginBottom: '10px'}} />
+              
+              <div style={{ display: 'flex', gap: '15px', alignItems: 'center', background: 'white', padding: '10px', borderRadius: '6px', border: '1px solid #e2e8f0' }}>
+                <div style={{ width: '60px', height: '40px', borderRadius: '4px', overflow: 'hidden', flexShrink: 0 }}>
+                  <img src={ayarlar?.kurumGorsel} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <ImageUploader onImageUpload={(url) => updateData({ ...ayarlar, kurumGorsel: url })} folder="kurum" label="Görsel" />
+                </div>
+              </div>
+            </div>
           </div>
-
-          <button onClick={saveTextChanges} className="btn btn-primary" style={{ width: '100%', padding: '15px', fontSize: '1.1rem' }}>
-            💾 Metin Değişikliklerini Kaydet ve Uygula
-          </button>
         </div>
-
       </div>
     </div>
   );

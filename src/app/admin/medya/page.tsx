@@ -70,10 +70,10 @@ export default function Medya() {
   };
 
   return (
-    <div>
-      <h1 style={{ fontSize: '2rem', marginBottom: '2rem', color: '#0f172a' }}>Medya Yönetimi</h1>
+    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <h1 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: '#0f172a', fontWeight: '800' }}>Medya Yönetimi</h1>
       
-      <div style={{ background: 'white', padding: '40px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', marginBottom: '30px' }}>
+      <div style={{ background: 'white', padding: '20px', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', marginBottom: '20px', border: '1px solid #e2e8f0' }}>
         <ImageUploader 
           onImageUpload={handleImageUpload}
           onImageDelete={handleImageDelete}
@@ -82,7 +82,7 @@ export default function Medya() {
         />
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '20px' }}>
+      <div className="responsive-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '15px' }}>
         {files.map((file: any) => (
           <div key={file.id} style={{ background: 'white', padding: '15px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.06)', position: 'relative', border: editingId === file.id ? '2px solid var(--primary-color)' : '1px solid #e2e8f0' }}>
             <img src={file.url} alt={file.name} style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '8px', marginBottom: '10px' }} />

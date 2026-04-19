@@ -1,8 +1,13 @@
 "use client";
+import { usePathname } from 'next/navigation';
 import { useAppStore } from '@/lib/store';
 
 export default function CallToAction() {
   const { data: ayarlar } = useAppStore('ayarlar');
+  const pathname = usePathname();
+
+  // Admin paneli sayfalarında bu bölümü gösterme
+  if (pathname.startsWith('/admin')) return null;
 
   return (
     <section style={{ background: '#012237', padding: '60px 0', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>

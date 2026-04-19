@@ -67,31 +67,35 @@ export default function Kadro() {
   };
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '10px' }}>
-        <h1 style={{ fontSize: '2rem', color: '#0f172a', margin: 0 }}>Eğitim Kadrosu</h1>
-        <button onClick={() => setIsModalOpen(true)} disabled={isSaving} style={{ background: '#f16101', color: 'white', padding: '8px 16px', border: 'none', borderRadius: '6px', cursor: isSaving ? 'not-allowed' : 'pointer', opacity: isSaving ? 0.6 : 1, fontSize: '0.9rem' }}>+ Ekle</button>
+    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '10px' }}>
+        <h1 style={{ fontSize: '1.5rem', color: '#0f172a', margin: 0, fontWeight: '800' }}>Eğitim Kadrosu</h1>
+        <button onClick={() => setIsModalOpen(true)} disabled={isSaving} style={{ background: '#f16101', color: 'white', padding: '8px 20px', border: 'none', borderRadius: '6px', cursor: isSaving ? 'not-allowed' : 'pointer', opacity: isSaving ? 0.6 : 1, fontSize: '0.9rem', fontWeight: '700' }}>+ Yeni Eğitmen Ekle</button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '15px' }}>
+      <div className="responsive-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '15px' }}>
         {kadro.length === 0 ? (
-          <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', gridColumn: '1 / -1' }}>
-            <p>Şu anda kayıtlı eğitmen bulunmamaktadır.</p>
+          <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', gridColumn: '1 / -1', textAlign: 'center', color: '#64748b' }}>
+            Şu anda kayıtlı eğitmen bulunmamaktadır.
           </div>
         ) : (
           kadro.map((k: any) => (
-            <div key={k.id} style={{ background: 'white', borderRadius: '12px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', textAlign: 'center', overflow: 'hidden', position: 'relative' }}>
-              <button onClick={() => deleteTeacher(k.id)} disabled={isSaving} style={{ position: 'absolute', top: '5px', right: '5px', background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '50%', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: isSaving ? 'not-allowed' : 'pointer', zIndex: 10, opacity: isSaving ? 0.6 : 1, fontSize: '12px' }}>×</button>
-              <div style={{ height: '120px', backgroundColor: '#e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '3rem', overflow: 'hidden' }}>
+            <div key={k.id} style={{ background: 'white', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', textAlign: 'center', overflow: 'hidden', position: 'relative', border: '1px solid #e2e8f0' }}>
+              <button 
+                onClick={() => deleteTeacher(k.id)} 
+                disabled={isSaving} 
+                style={{ position: 'absolute', top: '8px', right: '8px', background: 'rgba(255,255,255,0.9)', color: '#dc2626', border: 'none', borderRadius: '50%', width: '24px', height: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', zIndex: 10, fontSize: '16px', fontWeight: 'bold', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
+              >×</button>
+              <div style={{ height: '140px', backgroundColor: '#f1f5f9', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2.5rem', overflow: 'hidden' }}>
                 {k.photo ? (
                   <img src={k.photo} alt={k.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
-                  k.avatar
+                  <span style={{ opacity: 0.5 }}>{k.avatar}</span>
                 )}
               </div>
-              <div style={{ padding: '12px' }}>
-                <h3 style={{ margin: '0 0 3px 0', color: '#0f172a', fontSize: '0.95rem', fontWeight: 'bold' }}>{k.name}</h3>
-                <p style={{ margin: 0, color: '#f16101', fontWeight: 'bold', fontSize: '0.85rem' }}>{k.branch}</p>
+              <div style={{ padding: '10px' }}>
+                <h3 style={{ margin: '0 0 2px 0', color: '#0f172a', fontSize: '0.9rem', fontWeight: '800', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{k.name}</h3>
+                <p style={{ margin: 0, color: '#f16101', fontWeight: '700', fontSize: '0.75rem', textTransform: 'uppercase' }}>{k.branch}</p>
               </div>
             </div>
           ))

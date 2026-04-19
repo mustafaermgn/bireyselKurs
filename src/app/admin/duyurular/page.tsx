@@ -27,24 +27,24 @@ export default function Duyurular() {
   };
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '10px' }}>
-        <h1 style={{ fontSize: '2rem', color: '#0f172a', margin: 0 }}>Duyuru Yönetimi</h1>
-        <button onClick={() => setIsModalOpen(true)} style={{ background: '#f16101', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '6px', cursor: 'pointer' }}>+ Yeni Duyuru</button>
+    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '10px' }}>
+        <h1 style={{ fontSize: '1.5rem', color: '#0f172a', margin: 0, fontWeight: '800' }}>Duyuru Yönetimi</h1>
+        <button onClick={() => setIsModalOpen(true)} style={{ background: '#f16101', color: 'white', padding: '8px 20px', border: 'none', borderRadius: '6px', cursor: 'pointer', fontSize: '0.9rem', fontWeight: '700' }}>+ Yeni Duyuru Ekle</button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+      <div className="responsive-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '15px' }}>
         {duyurular.length === 0 ? (
-          <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', gridColumn: '1 / -1' }}>
-            <p>Şu anda aktif bir duyuru bulunmamaktadır.</p>
+          <div style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', gridColumn: '1 / -1', textAlign: 'center', color: '#64748b' }}>
+            Şu anda aktif bir duyuru bulunmamaktadır.
           </div>
         ) : (
           duyurular.map((d: any) => (
-            <div key={d.id} style={{ background: 'white', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', position: 'relative' }}>
-              <h3 style={{ margin: '0 0 10px 0', color: '#012237' }}>{d.title}</h3>
-              <p style={{ fontSize: '12px', color: '#94a3b8', marginBottom: '10px' }}>{d.date}</p>
-              <p style={{ color: '#475569' }}>{d.content}</p>
-              <button onClick={() => deleteDuyuru(d.id)} style={{ position: 'absolute', top: '20px', right: '20px', background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '4px', padding: '5px 10px', cursor: 'pointer' }}>Sil</button>
+            <div key={d.id} style={{ background: 'white', padding: '15px', borderRadius: '12px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', position: 'relative', border: '1px solid #e2e8f0' }}>
+              <button onClick={() => deleteDuyuru(d.id)} style={{ position: 'absolute', top: '12px', right: '12px', background: '#fee2e2', color: '#dc2626', border: 'none', borderRadius: '6px', padding: '4px 8px', cursor: 'pointer', fontSize: '11px', fontWeight: 'bold' }}>Sil</button>
+              <h3 style={{ margin: '0 0 5px 0', color: '#1e293b', fontSize: '1rem', paddingRight: '40px', fontWeight: '800' }}>{d.title}</h3>
+              <p style={{ fontSize: '11px', color: '#94a3b8', marginBottom: '10px', fontWeight: '600' }}>{d.date}</p>
+              <p style={{ color: '#475569', fontSize: '0.85rem', lineHeight: '1.5', margin: 0 }}>{d.content}</p>
             </div>
           ))
         )}
