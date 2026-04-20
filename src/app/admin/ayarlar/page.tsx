@@ -195,7 +195,7 @@ export default function Ayarlar() {
               {ayarlar?.heroArkaplanlar?.map((img: string, index: number) => (
                 <div key={index} style={{ position: 'relative', width: '100px', height: '60px', borderRadius: '6px', overflow: 'hidden', border: '1px solid #e2e8f0' }}>
                   <img src={img} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  <button onClick={() => removeBgImage(index)} style={{ position: 'absolute', inset: 0, background: 'rgba(220, 38, 38, 0.8)', color: 'white', border: 'none', opacity: 0, cursor: 'pointer', fontWeight: 'bold', fontSize: '11px' }} onMouseEnter={e => e.currentTarget.style.opacity = 1} onMouseLeave={e => e.currentTarget.style.opacity = 0}>SİL</button>
+                  <button onClick={() => removeBgImage(index)} style={{ position: 'absolute', inset: 0, background: 'rgba(220, 38, 38, 0.8)', color: 'white', border: 'none', opacity: 0, cursor: 'pointer', fontWeight: 'bold', fontSize: '11px' }} onMouseEnter={e => e.currentTarget.style.opacity = "1"} onMouseLeave={e => e.currentTarget.style.opacity = "0"}>SİL</button>
                 </div>
               ))}
             </div>
@@ -229,7 +229,7 @@ export default function Ayarlar() {
                 {[1, 2, 3].map(i => (
                   <div key={i}>
                     <label style={labelStyle}>{i}. Başlık</label>
-                    <input type="text" name={`kutu${i}Baslik`} value={ayarlar?.[`kutu${i}Baslik`] || ''} onChange={handleChange} style={{...inputStyle, padding: '8px', fontSize: '13px'}} />
+                    <input type="text" name={`kutu${i}Baslik`} value={(ayarlar as any)?.[`kutu${i}Baslik`] || ''} onChange={handleChange} style={{...inputStyle, padding: '8px', fontSize: '13px'}} />
                   </div>
                 ))}
               </div>
