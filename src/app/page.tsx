@@ -502,29 +502,29 @@ export default function Home() {
               <div className="grid grid-cols-2 grid-cols-mobile-1 responsive-gap" style={{ alignItems: 'center' }}>
                 {/* Sol Taraf - Görsel ve Dekorasyon */}
                 <div style={{ position: 'relative' }}>
-                  <div style={{ 
-                    position: 'absolute', 
-                    top: '-40px', 
-                    left: '-40px', 
-                    width: '300px', 
-                    height: '300px', 
-                    background: 'var(--primary-color)', 
-                    opacity: '0.05', 
+                  <div style={{
+                    position: 'absolute',
+                    top: '-40px',
+                    left: '-40px',
+                    width: '300px',
+                    height: '300px',
+                    background: 'var(--primary-color)',
+                    opacity: '0.05',
                     borderRadius: '50%',
                     zIndex: 1
                   }}></div>
-                  <div style={{ 
-                    position: 'relative', 
+                  <div style={{
+                    position: 'relative',
                     zIndex: 2,
                     borderRadius: '40px',
                     overflow: 'hidden',
                     boxShadow: '0 30px 60px rgba(1, 34, 55, 0.12)',
                     border: '8px solid white'
                   }}>
-                    <img 
-                      src={ayarlar.kurumGorsel || "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop"} 
-                      alt="Kurumumuz" 
-                      style={{ width: '100%', height: 'auto', display: 'block' }} 
+                    <img
+                      src={ayarlar.kurumGorsel || "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop"}
+                      alt="Kurumumuz"
+                      style={{ width: '100%', height: 'auto', display: 'block' }}
                     />
                   </div>
                   {/* Başarı Rozeti Deneyimi */}
@@ -551,34 +551,34 @@ export default function Home() {
 
                 {/* Sağ Taraf - İçerik */}
                 <div style={{ textAlign: 'left' }} className="mobile-center">
-                  <span className="section-subtitle" style={{ 
-                    background: 'rgba(241, 97, 1, 0.08)', 
-                    display: 'inline-block', 
-                    padding: '8px 20px', 
-                    borderRadius: '30px', 
-                    color: 'var(--primary-color)', 
-                    fontSize: '0.95rem', 
-                    fontWeight: '800', 
+                  <span className="section-subtitle" style={{
+                    background: 'rgba(241, 97, 1, 0.08)',
+                    display: 'inline-block',
+                    padding: '8px 20px',
+                    borderRadius: '30px',
+                    color: 'var(--primary-color)',
+                    fontSize: '0.95rem',
+                    fontWeight: '800',
                     letterSpacing: '1.5px',
                     textTransform: 'uppercase'
                   }}>KURUMUMUZU TANIYIN</span>
-                  
-                  <h2 style={{ 
-                    marginTop: '20px', 
-                    marginBottom: '25px', 
-                    color: 'var(--heading-color)', 
-                    fontWeight: '800', 
+
+                  <h2 style={{
+                    marginTop: '20px',
+                    marginBottom: '25px',
+                    color: 'var(--heading-color)',
+                    fontWeight: '800',
                     lineHeight: '1.1',
                     letterSpacing: '-1px'
                   }}>{ayarlar.kurumBaslik}</h2>
-                  
+
                   <div style={{ width: '60px', height: '5px', background: 'var(--primary-color)', marginBottom: '35px', borderRadius: '3px' }} className="mobile-center"></div>
-                  
-                  <p style={{ 
-                    fontSize: 'clamp(1rem, 2.5vw, 1.25rem)', 
-                    color: '#475569', 
-                    lineHeight: '1.8', 
-                    margin: 0, 
+
+                  <p style={{
+                    fontSize: 'clamp(1rem, 2.5vw, 1.25rem)',
+                    color: '#475569',
+                    lineHeight: '1.8',
+                    margin: 0,
                     whiteSpace: 'pre-line'
                   }}>
                     {ayarlar.kurumAciklama}
@@ -607,9 +607,9 @@ export default function Home() {
                 <h2 className="section-title" style={{ marginTop: '15px' }}>Öğrenci Başarılarımız</h2>
               </div>
 
-              <div 
+              <div
                 className="grid grid-cols-4 grid-cols-mobile-4"
-                style={{ 
+                style={{
                   gap: '30px',
                   padding: '20px 0'
                 }}
