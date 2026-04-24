@@ -32,7 +32,7 @@ export default function Home() {
     if (duyurular && duyurular.length > 1) {
       const interval = setInterval(() => {
         setCurrentDuyuru(prev => (prev + 1) % duyurular.length);
-      }, 4000);
+      }, 25000); // 25 saniye - Mobil marquee süresiyle senkronize edildi
       return () => clearInterval(interval);
     }
   }, [duyurular]);
@@ -131,39 +131,51 @@ export default function Home() {
 
       {/* 2. Campaign Advertisement Popup */}
       {showCampaignPopup && activeKampanyalar.length > 0 && !showSplash && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 9998, background: 'rgba(1, 34, 55, 0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', backdropFilter: 'blur(5px)', animation: 'fadeIn 0.3s ease' }}>
-          <style dangerouslySetInnerHTML={{
-            __html: `
-            @keyframes fadeIn {
-              from { opacity: 0; transform: scale(0.95); }
-              to { opacity: 1; transform: scale(1); }
-            }
-          `}} />
-          <div style={{ background: 'white', width: '100%', maxWidth: '500px', borderRadius: '16px', overflow: 'hidden', position: 'relative', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}>
+        <div className="campaign-overlay">
+          <div className="campaign-modal">
             <button
               onClick={() => setShowCampaignPopup(false)}
-              style={{ position: 'absolute', top: '15px', right: '15px', background: 'rgba(0,0,0,0.1)', border: 'none', width: '35px', height: '35px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '18px', cursor: 'pointer', zIndex: 10, color: '#333' }}
+              className="campaign-close"
               aria-label="Kapat"
             >
               ✕
             </button>
-            <div style={{ background: 'var(--primary-color)', padding: '40px 30px', textAlign: 'center', color: 'white', position: 'relative' }}>
-              <div style={{ fontSize: '4rem', marginBottom: '10px' }}>🎁</div>
-              <h2 style={{ margin: '0 0 10px 0', fontSize: '2rem' }}>Özel Fırsat!</h2>
-              <h3 style={{ margin: 0, fontSize: '1.4rem', fontWeight: '500' }}>{activeKampanyalar[0].name}</h3>
+            
+            <div className="campaign-header">
+              <div className="campaign-badge">SINIRLI SÜRE</div>
+              <h2 className="campaign-title">{activeKampanyalar[0].name}</h2>
+              <div className="campaign-discount-badge">{activeKampanyalar[0].discount} İNDİRİM</div>
             </div>
-            <div style={{ padding: '30px', textAlign: 'center' }}>
-              <p style={{ fontSize: '1.2rem', color: '#475569', marginBottom: '10px' }}>
-                Sınırlı süreliğine <strong>{activeKampanyalar[0].discount}</strong> indirim fırsatını kaçırmayın.
+            
+            <div className="campaign-body">
+              <p className="campaign-description">
+                Geleceğinizi profesyonel bir eğitimle şekillendirmek için en doğru zaman. 
+                Hemen başvurarak <strong>{activeKampanyalar[0].discount}</strong> avantajından yararlanın.
               </p>
-              <p style={{ fontSize: '0.9rem', color: '#94a3b8', marginBottom: '30px' }}>
-                Son Geçerlilik: {activeKampanyalar[0].date}
-              </p>
-              <button onClick={() => { setShowCampaignPopup(false); window.dispatchEvent(new Event('open-application-modal')); }} className="btn btn-primary" style={{ display: 'block', width: '100%', padding: '15px', fontSize: '1.1rem', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
-                Hemen Başvur ve Fırsatı Yakala
+              
+              <div className="campaign-info-row">
+                <div className="campaign-info-item">
+                  <span className="info-label">GEÇERLİLİK</span>
+                  <span className="info-value">{activeKampanyalar[0].date}</span>
+                </div>
+                <div className="campaign-info-item">
+                  <span className="info-label">KONTENJAN</span>
+                  <span className="info-value">SINIRLI</span>
+                </div>
+              </div>
+
+              <button 
+                onClick={() => { setShowCampaignPopup(false); window.dispatchEvent(new Event('open-application-modal')); }} 
+                className="btn btn-primary campaign-cta"
+              >
+                Fırsatı Yakala & Başvur
               </button>
-              <button onClick={() => setShowCampaignPopup(false)} style={{ background: 'none', border: 'none', color: '#94a3b8', textDecoration: 'underline', marginTop: '15px', cursor: 'pointer', fontSize: '0.9rem' }}>
-                Hayır, teşekkürler
+              
+              <button 
+                onClick={() => setShowCampaignPopup(false)} 
+                className="campaign-secondary-link"
+              >
+                Daha sonra incele
               </button>
             </div>
           </div>
@@ -171,11 +183,27 @@ export default function Home() {
       )}
 
       <div className="main-container">
-        {/* Top Banner for Announcements */}
+        {/* Professional Announcement Bar */}
         {isLoaded && duyurular && duyurular.length > 0 && (
-          <div style={{ background: 'var(--accent-red)', color: 'white', padding: '10px 0', textAlign: 'center', fontSize: '14px', fontWeight: 'bold', transition: 'all 0.3s ease' }}>
-            <span style={{ marginRight: '10px' }}>📢 {duyurular.length > 1 ? `DUYURULAR (${currentDuyuru + 1}/${duyurular.length}):` : 'YENİ DUYURU:'}</span>
-            {duyurular[currentDuyuru]?.title} - {duyurular[currentDuyuru]?.date}
+          <div className="announcement-bar" onClick={() => setCurrentDuyuru((currentDuyuru + 1) % duyurular.length)}>
+            <div className="container announcement-inner">
+              <div className="announcement-label">
+                <span className="pulse-icon"></span>
+                DUYURU
+              </div>
+              <div className="announcement-content-wrapper">
+                <div className="announcement-text" key={currentDuyuru}>
+                  <span className="announcement-title">{duyurular[currentDuyuru]?.title}</span>
+                  <span className="announcement-separator">|</span>
+                  <span className="announcement-desc">{duyurular[currentDuyuru]?.content}</span>
+                </div>
+              </div>
+              {duyurular.length > 1 && (
+                <div className="announcement-nav">
+                  <span>{currentDuyuru + 1} / {duyurular.length}</span>
+                </div>
+              )}
+            </div>
           </div>
         )}
 

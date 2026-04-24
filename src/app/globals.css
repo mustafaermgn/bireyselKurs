@@ -872,3 +872,322 @@ p {
     line-height: 1.5;
   }
 }
+
+/* Professional Announcement Bar */
+.announcement-bar {
+  background: #d23f3f; /* Eski Kırmızı Tonu (Sabit) */
+  color: white;
+  padding: 14px 0;
+  cursor: pointer;
+  position: relative;
+  z-index: 50;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(210, 63, 63, 0.2);
+  overflow: hidden;
+}
+
+.announcement-bar::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.announcement-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.announcement-label {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.pulse-icon {
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse-white 2s infinite;
+  box-shadow: 0 0 10px white;
+}
+
+@keyframes pulse-white {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+.announcement-content-wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.announcement-text {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+/* Marquee animation for the text if it's long */
+@media (max-width: 767px) {
+  .announcement-content-wrapper {
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  }
+  
+  .announcement-text {
+    animation: announcement-scroll 25s linear infinite;
+    padding-left: 100%;
+    display: inline-flex;
+  }
+
+  @keyframes announcement-scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+}
+
+.announcement-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: white;
+  white-space: nowrap;
+}
+
+.announcement-separator {
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 300;
+}
+
+.announcement-desc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.announcement-nav {
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 5px 12px;
+  border-radius: 50px;
+  flex-shrink: 0;
+  margin-left: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 767px) {
+  .announcement-inner {
+    gap: 10px;
+    padding: 0 10px;
+  }
+  .announcement-label {
+    padding: 3px 8px;
+    font-size: 10px;
+  }
+  .announcement-nav {
+    display: flex;
+    font-size: 10px;
+    padding: 2px 6px;
+    margin-left: 5px;
+  }
+}
+
+/* Campaign Modal Corporate Design */
+.campaign-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(1, 34, 55, 0.7);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: modalFadeIn 0.4s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.campaign-modal {
+  background: white;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+  animation: modalSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalSlideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.campaign-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.campaign-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.campaign-header {
+  background: linear-gradient(135deg, var(--secondary-color) 0%, #023658 100%);
+  padding: 50px 40px;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+.campaign-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 5px 12px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.campaign-title {
+  margin: 0 0 15px 0;
+  font-size: 1.8rem;
+  color: white;
+  line-height: 1.2;
+}
+
+.campaign-discount-badge {
+  display: inline-block;
+  background: var(--primary-color);
+  padding: 8px 20px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 800;
+  box-shadow: 0 10px 20px rgba(241, 97, 1, 0.3);
+}
+
+.campaign-body {
+  padding: 40px;
+  text-align: center;
+}
+
+.campaign-description {
+  font-size: 1.05rem;
+  color: #475569;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.campaign-info-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 35px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 16px;
+}
+
+.campaign-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.info-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: #94a3b8;
+  letter-spacing: 1px;
+}
+
+.info-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--secondary-color);
+}
+
+.campaign-cta {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  border-radius: 16px;
+}
+
+.campaign-secondary-link {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.campaign-secondary-link:hover {
+  color: #64748b;
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .campaign-modal {
+    border-radius: 0;
+    max-width: 100%;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .campaign-header {
+    padding: 40px 20px;
+  }
+  .campaign-body {
+    padding: 30px 20px;
+  }
+  .campaign-info-row {
+    gap: 20px;
+  }
+}
