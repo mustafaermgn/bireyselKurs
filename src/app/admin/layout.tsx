@@ -201,8 +201,27 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           .admin-user-info { display: block !important; }
         }
         @media (max-width: 767px) {
-          .admin-main > div { padding: 1rem !important; }
-          header { padding: 0.75rem 1rem !important; }
+          .admin-main > div { padding: 0.5rem !important; }
+          header { padding: 0.5rem 0.75rem !important; height: auto !important; }
+          .admin-menu-toggle { width: 32px !important; height: 32px !important; font-size: 1.1rem !important; }
+          /* Compact Typo & Margins */
+          h1 { font-size: 1.25rem !important; margin-bottom: 0 !important; }
+          p { font-size: 0.8rem !important; }
+          .admin-main > div > div:first-child { margin-bottom: 0.75rem !important; }
+          /* Buttons */
+          button { padding: 6px 12px !important; font-size: 0.8rem !important; }
+          /* Tables */
+          table th, table td { padding: 0.5rem 0.5rem !important; font-size: 0.75rem !important; }
+          /* Grids */
+          .grid { gap: 10px !important; }
+          .grid-cols-2, .grid-cols-3 { grid-template-columns: 1fr !important; }
+          /* Cards & Modals */
+          .admin-card, .modal-content { padding: 1rem !important; }
+          .modal-overlay { padding: 10px !important; }
+          /* Tabs */
+          .admin-tabs button { padding: 8px 12px !important; font-size: 0.8rem !important; }
+          /* Inputs */
+          input, textarea, select { padding: 8px 10px !important; font-size: 0.85rem !important; margin-bottom: 10px !important; }
         }
       `}} />
     </div>

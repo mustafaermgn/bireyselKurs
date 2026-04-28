@@ -71,7 +71,7 @@ export default function CRM() {
           { label: 'Arananlar', value: calledLeads, color: '#1d4ed8' },
           { label: 'Kayıt Olanlar', value: registeredLeads, color: '#15803d' },
         ].map((stat, idx) => (
-          <div key={idx} style={{ background: 'white', padding: '1.5rem', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)', border: '1px solid #e2e8f0' }}>
+          <div className="admin-card" key={idx} style={{ background: 'white', padding: '1.5rem', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)', border: '1px solid #e2e8f0' }}>
             <p style={{ margin: 0, color: '#64748b', fontSize: '0.85rem', fontWeight: '600' }}>{stat.label}</p>
             <p style={{ margin: '8px 0 0 0', fontSize: '1.75rem', fontWeight: '800', color: stat.color }}>{stat.value}</p>
           </div>
@@ -105,7 +105,7 @@ export default function CRM() {
       </div>
 
       {/* Table Container */}
-      <div style={{ background: 'white', borderRadius: '16px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+      <div className="admin-card" style={{ background: 'white', borderRadius: '16px', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.05)', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '800px' }}>
             <thead>

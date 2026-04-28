@@ -105,7 +105,7 @@ export default function Ayarlar() {
       )}
 
       {/* Tabs */}
-      <div style={{ display: 'flex', borderBottom: '1px solid #e2e8f0', marginBottom: '25px', overflowX: 'auto', whiteSpace: 'nowrap' }}>
+      <div className="admin-tabs" style={{ display: 'flex', borderBottom: '1px solid #e2e8f0', marginBottom: '15px', overflowX: 'auto', whiteSpace: 'nowrap' }}>
         <button style={tabStyle(activeTab === 'genel')} onClick={() => setActiveTab('genel')}>Genel / İletişim</button>
         <button style={tabStyle(activeTab === 'gorsel')} onClick={() => setActiveTab('gorsel')}>Görseller & Medya</button>
         <button style={tabStyle(activeTab === 'anasayfa')} onClick={() => setActiveTab('anasayfa')}>Anasayfa Metinleri</button>
@@ -113,11 +113,11 @@ export default function Ayarlar() {
         <button style={tabStyle(activeTab === 'kurslar')} onClick={() => setActiveTab('kurslar')}>Kurs Eğitim Metinleri</button>
       </div>
 
-      <div style={{ background: 'white', padding: '30px', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)', border: '1px solid #e2e8f0' }}>
+      <div className="admin-card" style={{ background: 'white', padding: '30px', borderRadius: '16px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)', border: '1px solid #e2e8f0' }}>
         
         {/* TAB 1: GENEL & İLETİŞİM */}
         {activeTab === 'genel' && (
-          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '25px' }}>
+          <div className="grid grid-cols-2" style={{ gap: '25px' }}>
             <div>
               <h3 style={{ fontSize: '1.1rem', marginBottom: '20px', color: '#1e293b', borderBottom: '2px solid #f1f5f9', paddingBottom: '10px' }}>İletişim Bilgileri</h3>
               <label style={labelStyle}>E-posta Adresi</label>
@@ -162,7 +162,7 @@ export default function Ayarlar() {
 
         {/* TAB 2: GÖRSELLER */}
         {activeTab === 'gorsel' && (
-          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '30px' }}>
+          <div className="grid grid-cols-2" style={{ gap: '30px' }}>
             <div>
               <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', color: '#1e293b' }}>Anasayfa Slayt Fotoğrafları</h3>
               <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '15px' }}>Açılışta sağ tarafta bulunan yuvarlak alana fotoğraf ekleyin.</p>
@@ -207,8 +207,8 @@ export default function Ayarlar() {
 
         {/* TAB 3: ANASAYFA METİNLERİ */}
         {activeTab === 'anasayfa' && (
-          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '30px' }}>
-            <div style={{ background: '#f8fafc', padding: '20px', borderRadius: '12px' }}>
+          <div className="grid grid-cols-2" style={{ gap: '30px' }}>
+            <div className="admin-card" style={{ background: '#f8fafc', padding: '20px', borderRadius: '12px' }}>
               <h3 style={{ fontSize: '1.1rem', marginBottom: '20px', color: '#1e293b' }}>Açılış (Hero) Bölümü</h3>
               <label style={labelStyle}>Üst Başlık (Küçük)</label>
               <input type="text" name="heroUstBaslik" value={ayarlar.heroUstBaslik || ''} onChange={handleChange} style={inputStyle} />
@@ -220,7 +220,7 @@ export default function Ayarlar() {
               <textarea name="heroAciklama" value={ayarlar.heroAciklama || ''} onChange={handleChange} style={{...inputStyle, height: '100px'}} />
             </div>
 
-            <div style={{ background: '#f8fafc', padding: '20px', borderRadius: '12px' }}>
+            <div className="admin-card" style={{ background: '#f8fafc', padding: '20px', borderRadius: '12px' }}>
               <h3 style={{ fontSize: '1.1rem', marginBottom: '20px', color: '#1e293b' }}>Kurumu Tanıyın & CTA</h3>
               <label style={labelStyle}>Kurum Bölümü Başlığı</label>
               <input type="text" name="kurumBaslik" value={ayarlar.kurumBaslik || ''} onChange={handleChange} style={inputStyle} />
@@ -237,9 +237,9 @@ export default function Ayarlar() {
               <textarea name="ctaAciklama" value={ayarlar.ctaAciklama || ''} onChange={handleChange} style={{...inputStyle, height: '60px'}} />
             </div>
 
-            <div style={{ gridColumn: '1 / -1', background: '#f8fafc', padding: '20px', borderRadius: '12px' }}>
+            <div className="admin-card" style={{ gridColumn: '1 / -1', background: '#f8fafc', padding: '20px', borderRadius: '12px' }}>
               <h3 style={{ fontSize: '1.1rem', marginBottom: '20px', color: '#1e293b' }}>Öne Çıkan 3 Özellik Kutusu</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: '15px' }}>
+              <div className="grid grid-cols-3" style={{ gap: '15px' }}>
                 {[1, 2, 3].map(i => (
                   <div key={i} style={{ background: 'white', padding: '15px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
                     <label style={labelStyle}>{i}. Kutu Başlığı</label>
@@ -255,7 +255,7 @@ export default function Ayarlar() {
 
         {/* TAB 4: HAKKIMIZDA METİNLERİ */}
         {activeTab === 'hakkimizda' && (
-          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '30px' }}>
+          <div className="grid grid-cols-2" style={{ gap: '30px' }}>
             <div>
               <h3 style={{ fontSize: '1.1rem', marginBottom: '20px', color: '#1e293b' }}>Sayfa Üst Kısmı</h3>
               <label style={labelStyle}>Üst Etiket (Örn: BİZ KİMİZ?)</label>
@@ -292,8 +292,8 @@ export default function Ayarlar() {
 
         {/* TAB 5: KURSLAR (EĞİTİM PROGRAMLARI) */}
         {activeTab === 'kurslar' && (
-          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: '30px' }}>
-            <div style={{ background: '#fef2f2', padding: '20px', borderRadius: '12px', border: '1px solid #fee2e2' }}>
+          <div className="grid grid-cols-2" style={{ gap: '30px' }}>
+            <div className="admin-card" style={{ background: '#fef2f2', padding: '20px', borderRadius: '12px', border: '1px solid #fee2e2' }}>
               <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', color: '#b91c1c' }}>YKS Programı</h3>
               <label style={labelStyle}>Program Başlığı</label>
               <input type="text" name="yksBaslik" value={ayarlar.yksBaslik || ''} onChange={handleChange} style={inputStyle} />
@@ -301,7 +301,7 @@ export default function Ayarlar() {
               <textarea name="yksAciklama" value={ayarlar.yksAciklama || ''} onChange={handleChange} style={{...inputStyle, height: '100px', marginBottom: 0}} />
             </div>
 
-            <div style={{ background: '#eff6ff', padding: '20px', borderRadius: '12px', border: '1px solid #dbeafe' }}>
+            <div className="admin-card" style={{ background: '#eff6ff', padding: '20px', borderRadius: '12px', border: '1px solid #dbeafe' }}>
               <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', color: '#1d4ed8' }}>LGS Programı</h3>
               <label style={labelStyle}>Program Başlığı</label>
               <input type="text" name="lgsBaslik" value={ayarlar.lgsBaslik || ''} onChange={handleChange} style={inputStyle} />
@@ -309,7 +309,7 @@ export default function Ayarlar() {
               <textarea name="lgsAciklama" value={ayarlar.lgsAciklama || ''} onChange={handleChange} style={{...inputStyle, height: '100px', marginBottom: 0}} />
             </div>
 
-            <div style={{ background: '#fdf4ff', padding: '20px', borderRadius: '12px', border: '1px solid #fae8ff' }}>
+            <div className="admin-card" style={{ background: '#fdf4ff', padding: '20px', borderRadius: '12px', border: '1px solid #fae8ff' }}>
               <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', color: '#a21caf' }}>Yabancı Dil Eğitimleri</h3>
               <label style={labelStyle}>Program Başlığı</label>
               <input type="text" name="dilOkuluBaslik" value={ayarlar.dilOkuluBaslik || ''} onChange={handleChange} style={inputStyle} />
@@ -317,7 +317,7 @@ export default function Ayarlar() {
               <textarea name="dilOkuluAciklama" value={ayarlar.dilOkuluAciklama || ''} onChange={handleChange} style={{...inputStyle, height: '100px', marginBottom: 0}} />
             </div>
 
-            <div style={{ background: '#f0fdf4', padding: '20px', borderRadius: '12px', border: '1px solid #dcfce3' }}>
+            <div className="admin-card" style={{ background: '#f0fdf4', padding: '20px', borderRadius: '12px', border: '1px solid #dcfce3' }}>
               <h3 style={{ fontSize: '1.1rem', marginBottom: '15px', color: '#15803d' }}>Ara Sınıf Takviye</h3>
               <label style={labelStyle}>Program Başlığı</label>
               <input type="text" name="araSinifBaslik" value={ayarlar.araSinifBaslik || ''} onChange={handleChange} style={inputStyle} />
