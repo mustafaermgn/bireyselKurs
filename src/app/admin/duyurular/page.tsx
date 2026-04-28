@@ -14,6 +14,7 @@ export default function Duyurular() {
     const newDuyuru = {
       id: Date.now(),
       title: newTitle,
+      date: new Date().toISOString().split('T')[0],
       content: newContent
     };
     updateData([newDuyuru, ...duyurular]);

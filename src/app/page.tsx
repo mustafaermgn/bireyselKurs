@@ -6,10 +6,10 @@ import { useAppStore } from '@/lib/store';
 
 export default function Home() {
   const { data: duyurular, isLoaded } = useAppStore('duyurular');
-  const { data: kampanyalar } = useAppStore('kampanyalar');
-  const { data: blogs } = useAppStore('blog');
+  const { data: kampanyalar, isLoaded: kampanyalarLoaded } = useAppStore('kampanyalar');
+  const { data: blogs, isLoaded: blogsLoaded } = useAppStore('blog');
   const { data: ayarlar, isLoaded: ayarlarLoaded } = useAppStore('ayarlar');
-  const { data: basarilar } = useAppStore('basarilar');
+  const { data: basarilar, isLoaded: basarilarLoaded } = useAppStore('basarilar');
 
   const [currentDuyuru, setCurrentDuyuru] = useState(0);
   const [showSplash, setShowSplash] = useState(true);
@@ -130,7 +130,7 @@ export default function Home() {
       )}
 
       {/* 2. Campaign Advertisement Popup */}
-      {showCampaignPopup && activeKampanyalar.length > 0 && !showSplash && (
+      {kampanyalarLoaded && showCampaignPopup && activeKampanyalar.length > 0 && !showSplash && (
         <div className="campaign-overlay">
           <div className="campaign-modal">
             <button
@@ -384,7 +384,7 @@ export default function Home() {
 
 
         {/* Events / Posts Section */}
-        {blogs && blogs.length > 0 && (
+        {blogsLoaded && blogs && blogs.length > 0 && (
           <section className="bg-alt" style={{ padding: '60px 0', borderTop: '1px solid #f1f5f9' }}>
             <div className="container">
               <div className="text-center" style={{ marginBottom: '40px' }}>
@@ -627,7 +627,7 @@ export default function Home() {
 
 
         {/* Gurur Tablomuz (Başarılarımız) */}
-        {basarilar && basarilar.length > 0 && (
+        {basarilarLoaded && basarilar && basarilar.length > 0 && (
           <section className="bg-white" style={{ padding: '80px 0' }}>
             <div className="container">
               <div className="text-center" style={{ marginBottom: '50px' }}>

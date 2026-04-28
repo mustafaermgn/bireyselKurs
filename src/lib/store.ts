@@ -112,7 +112,7 @@ async function fetchFromFirebase<K extends keyof typeof defaultData>(key: K) {
         data.push({ id: doc.id, ...doc.data() });
       });
       console.log(`📦 ${key} Firebase'ten yüklendi (${data.length} kayıt)`);
-      return data.length > 0 ? data : defaultData[key];
+      return data;
     }
   } catch (error) {
     console.error(`❌ Error fetching ${key} from Firebase:`, error);
