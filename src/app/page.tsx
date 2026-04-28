@@ -436,10 +436,10 @@ export default function Home() {
 
                 <div style={{ flex: 1, position: 'relative', zIndex: 2 }}>
                   <h4 style={{ fontSize: '1.4rem', marginBottom: '15px', fontWeight: '800' }}>
-                    <Link href="/kurslar/lgs" style={{ color: 'var(--heading-color)', textDecoration: 'none' }}>LGS Hazırlık</Link>
+                    <Link href="/kurslar/lgs" style={{ color: 'var(--heading-color)', textDecoration: 'none' }}>{ayarlar?.lgsBaslik || 'LGS Hazırlık'}</Link>
                   </h4>
                   <p style={{ color: '#64748b', fontSize: '1rem', lineHeight: '1.6', marginBottom: '20px' }}>
-                    Sınav formatına uygun, yeni nesil soru teknikleriyle donatılmış özel LGS hazırlık programı (5, 6, 7 ve 8. Sınıflar).
+                    {ayarlar?.lgsAciklama || 'Sınav formatına uygun, yeni nesil soru teknikleriyle donatılmış özel LGS hazırlık programı (5, 6, 7 ve 8. Sınıflar).'}
                   </p>
                 </div>
 
@@ -459,10 +459,10 @@ export default function Home() {
 
                 <div style={{ flex: 1, position: 'relative', zIndex: 2 }}>
                   <h4 style={{ fontSize: '1.4rem', marginBottom: '15px', fontWeight: '800' }}>
-                    <Link href="/kurslar/yks" style={{ color: 'var(--heading-color)', textDecoration: 'none' }}>YKS Hazırlık</Link>
+                    <Link href="/kurslar/yks" style={{ color: 'var(--heading-color)', textDecoration: 'none' }}>{ayarlar?.yksBaslik || 'YKS Hazırlık'}</Link>
                   </h4>
                   <p style={{ color: '#64748b', fontSize: '1rem', lineHeight: '1.6', marginBottom: '20px' }}>
-                    Üniversite hayalinize ulaşmanız için kapsamlı konu anlatımları ve Türkiye geneli deneme sınavları.
+                    {ayarlar?.yksAciklama || 'Üniversite hayalinize ulaşmanız için kapsamlı konu anlatımları ve Türkiye geneli deneme sınavları.'}
                   </p>
                 </div>
 
@@ -482,10 +482,10 @@ export default function Home() {
 
                 <div style={{ flex: 1, position: 'relative', zIndex: 2 }}>
                   <h4 style={{ fontSize: '1.4rem', marginBottom: '15px', fontWeight: '800' }}>
-                    <Link href="/dil-okulu" style={{ color: 'var(--heading-color)', textDecoration: 'none' }}>Dil Okulu & YDS</Link>
+                    <Link href="/dil-okulu" style={{ color: 'var(--heading-color)', textDecoration: 'none' }}>{ayarlar?.dilOkuluBaslik || 'Dil Okulu & YDS'}</Link>
                   </h4>
                   <p style={{ color: '#64748b', fontSize: '1rem', lineHeight: '1.6', marginBottom: '20px' }}>
-                    Genel İngilizce, Kids, Teenage ve Sınav İngilizcesi programlarımızla dünya dillerini kalıcı öğrenin.
+                    {ayarlar?.dilOkuluAciklama || 'Genel İngilizce, Kids, Teenage ve Sınav İngilizcesi programlarımızla dünya dillerini kalıcı öğrenin.'}
                   </p>
                 </div>
 
@@ -505,10 +505,10 @@ export default function Home() {
 
                 <div style={{ flex: 1, position: 'relative', zIndex: 2 }}>
                   <h4 style={{ fontSize: '1.4rem', marginBottom: '15px', fontWeight: '800' }}>
-                    <Link href="/kurslar/ara-sinif" style={{ color: 'var(--heading-color)', textDecoration: 'none' }}>Ara Sınıflar</Link>
+                    <Link href="/kurslar/ara-sinif" style={{ color: 'var(--heading-color)', textDecoration: 'none' }}>{ayarlar?.araSinifBaslik || 'Ara Sınıflar'}</Link>
                   </h4>
                   <p style={{ color: '#64748b', fontSize: '1rem', lineHeight: '1.6', marginBottom: '20px' }}>
-                    Okul derslerine takviye ve temelden sınav hazırlığı (9, 10 ve 11. Sınıf öğrencileri için özel).
+                    {ayarlar?.araSinifAciklama || 'Okul derslerine takviye ve temelden sınav hazırlığı (9, 10 ve 11. Sınıf öğrencileri için özel).'}
                   </p>
                 </div>
 

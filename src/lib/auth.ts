@@ -67,6 +67,7 @@ export function getErrorMessage(error: any): string {
     'auth/user-disabled': 'Bu kullanıcı devre dışı bırakılmıştır',
     'auth/user-not-found': 'Kullanıcı bulunamadı',
     'auth/wrong-password': 'Yanlış şifre',
+    'auth/invalid-credential': 'E-posta adresi veya şifre hatalı',
     'auth/email-already-in-use': 'Bu email zaten kullanılıyor',
     'auth/weak-password': 'Şifre çok zayıf (en az 6 karakter)',
     'auth/operation-not-allowed': 'Bu işlem izin verilmiyor',

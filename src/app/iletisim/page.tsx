@@ -4,6 +4,7 @@ import { useAppStore } from '@/lib/store';
 
 export default function Iletisim() {
   const { data: leads, updateData } = useAppStore('leads');
+  const { data: ayarlar, isLoaded } = useAppStore('ayarlar');
   const [formData, setFormData] = useState({
     name: '', phone: '', interest: 'YKS', message: ''
   });
@@ -24,6 +25,8 @@ export default function Iletisim() {
     setFormData({ name: '', phone: '', interest: 'YKS', message: '' });
   };
 
+  if (!isLoaded) return <div style={{ minHeight: '50vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Yükleniyor...</div>;
+
   return (
     <div className="main-container">
       <section className="bg-navy" style={{ padding: '80px 0', textAlign: 'center' }}>
@@ -35,17 +38,36 @@ export default function Iletisim() {
 
       <section className="section">
         <div className="container">
-          <div className="grid grid-cols-2" style={{ gap: '50px' }}>
+          <div className="grid grid-cols-2 mobile-reverse" style={{ gap: '50px' }}>
             <div>
               <div className="card" style={{ padding: '40px', marginBottom: '30px', borderTop: '4px solid var(--primary-color)' }}>
                 <h3 style={{ marginBottom: '20px' }}>Bize Ulaşın</h3>
                 <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                  <li style={{ display: 'flex', gap: '15px' }}><div style={{ width: '50px', height: '50px', background: 'var(--bg-alt)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary-color)', fontSize: '20px' }}>📍</div><div><h4 style={{ margin: '0 0 5px 0', fontSize: '16px' }}>Adres</h4><p style={{ margin: 0 }}>Cudi, 61. Cd. No:40, 73400 Silopi/Şırnak</p></div></li>
-                  <li style={{ display: 'flex', gap: '15px' }}><div style={{ width: '50px', height: '50px', background: 'var(--bg-alt)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-teal)', fontSize: '20px' }}>📞</div><div><h4 style={{ margin: '0 0 5px 0', fontSize: '16px' }}>Telefon</h4><p style={{ margin: 0 }}>0555 054 1230</p></div></li>
+                  <li style={{ display: 'flex', gap: '15px' }}>
+                    <div style={{ width: '50px', height: '50px', background: 'var(--bg-alt)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary-color)', fontSize: '20px' }}>📍</div>
+                    <div>
+                      <h4 style={{ margin: '0 0 5px 0', fontSize: '16px' }}>Adres</h4>
+                      <p style={{ margin: 0 }}>{ayarlar?.adres || 'Cudi, 61. Cd. No:40, 73400 Silopi/Şırnak'}</p>
+                    </div>
+                  </li>
+                  <li style={{ display: 'flex', gap: '15px' }}>
+                    <div style={{ width: '50px', height: '50px', background: 'var(--bg-alt)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-teal)', fontSize: '20px' }}>📞</div>
+                    <div>
+                      <h4 style={{ margin: '0 0 5px 0', fontSize: '16px' }}>Telefon</h4>
+                      <p style={{ margin: 0 }}>{ayarlar?.telefon || '0555 054 1230'}</p>
+                    </div>
+                  </li>
+                  <li style={{ display: 'flex', gap: '15px' }}>
+                    <div style={{ width: '50px', height: '50px', background: 'var(--bg-alt)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--accent-purple)', fontSize: '20px' }}>✉️</div>
+                    <div>
+                      <h4 style={{ margin: '0 0 5px 0', fontSize: '16px' }}>E-Posta</h4>
+                      <p style={{ margin: 0 }}>{ayarlar?.eposta || 'info@bireyselkurs.com'}</p>
+                    </div>
+                  </li>
                 </ul>
                 <div style={{ marginTop: '30px', borderRadius: '8px', overflow: 'hidden' }}>
                   <iframe 
-                    src="https://maps.google.com/maps?q=Cudi,+61.+Cd.+No:40,+73400+Silopi/Şırnak&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                    src={ayarlar?.googleMapsUrl || "https://maps.google.com/maps?q=Cudi,+61.+Cd.+No:40,+73400+Silopi/Şırnak&t=&z=15&ie=UTF8&iwloc=&output=embed"} 
                     width="100%" 
                     height="250" 
                     style={{ border: 0 }} 

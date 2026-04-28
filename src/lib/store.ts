@@ -14,48 +14,24 @@ import {
 } from 'firebase/firestore';
 
 const defaultData = {
-  duyurular: [
-    { id: 1 as number | string, title: 'YKS Deneme Sınavı', date: '2025-05-15', content: 'Türkiye geneli YKS deneme sınavımız 15 Mayıs\'ta yapılacaktır. Tüm öğrenciler katılmaya davetlidir.' },
-    { id: 2 as number | string, title: 'LGS Hazırlık Programı Başladı', date: '2025-04-20', content: 'Bu yıl LGS\'ye hazırlanacak öğrencilerin kayıtları alınmaya başlanmıştır. Sınırlı kontenjan vardır.' },
-    { id: 3 as number | string, title: 'İngilizce Konuşma Kulübü', date: '2025-04-10', content: 'Her Cuma saat 16:00\'da İngilizce konuşma kulübünün toplantısı yapılacaktır.' }
-  ],
-  kampanyalar: [
-    { id: 1 as number | string, name: 'Erken Kayıt Fırsatı', discount: '%20', date: '2025-06-30', active: true },
-    { id: 2 as number | string, name: 'Grup Kaydında %15 İndirim', discount: '%15', date: '2025-05-31', active: true },
-    { id: 3 as number | string, name: 'Yaz Okulu Kampanyası', discount: '%25', date: '2025-07-31', active: false }
-  ],
-  medya: [
-    { id: 1 as number | string, name: 'Eğitim Ortamımız', url: 'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as {url: string, description: string}[] },
-    { id: 2 as number | string, name: 'Kütüphanemiz', url: 'https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as {url: string, description: string}[] },
-    { id: 3 as number | string, name: 'Laboratuvar', url: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as {url: string, description: string}[] },
-    { id: 4 as number | string, name: 'Bilgisayar Laboratuvarı', url: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop', description: '', extraImages: [] as {url: string, description: string}[] }
-  ],
-  blog: [
-    { id: 1 as number | string, title: 'YKS Başarı Stratejileri Semineri', author: 'Rehberlik Servisi', date: '2025-04-10', content: 'Öğrencilerimizle YKS öncesi motivasyon ve taktik seminerimizi gerçekleştirdik. Sınav kaygısını yönetmek ve etkili çalışma yöntemleri öğrendiler.', photo: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=800&auto=format&fit=crop' as string | null | undefined },
-    { id: 2 as number | string, title: 'Etkili Ders Çalışma Teknikleri', author: 'Eğitim Koordinatörü', date: '2025-03-25', content: 'Pomodoro tekniği, spaced repetition ve active recall gibi bilimsel çalışma yöntemlerini tanıttık.', photo: 'https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop' as string | null | undefined },
-    { id: 3 as number | string, title: 'Kütüphane Kullanım Rehberi', author: 'Kütüphaneci', date: '2025-03-15', content: 'Kütüphanemizin tüm kaynaklarından en etkili şekilde yararlanmanın püf noktaları.', photo: 'https://images.unsplash.com/photo-1507842955343-583cf753a38d?q=80&w=800&auto=format&fit=crop' as string | null | undefined }
-  ],
-  leads: [
-    { id: 1 as number | string, name: 'Ahmet Yılmaz', phone: '0555 123 4567', interest: 'YKS', status: 'Bekliyor', date: '2025-05-10' },
-    { id: 2 as number | string, name: 'Fatma Demir', phone: '0532 456 7890', interest: 'LGS', status: 'Arandı', date: '2025-05-09' },
-    { id: 3 as number | string, name: 'Mehmet Kaya', phone: '0544 789 0123', interest: 'İngilizce', status: 'Kayıt Yaptı', date: '2025-05-08' }
-  ],
-  kadro: [
-    { id: 1 as number | string, name: 'Ali Yılmaz', branch: 'Matematik', avatar: '👨‍🏫', photo: null as string | null | undefined },
-    { id: 2 as number | string, name: 'Ayşe Demir', branch: 'Fizik', avatar: '👩‍🏫', photo: null as string | null | undefined },
-    { id: 3 as number | string, name: 'Kadir Çelik', branch: 'Kimya', avatar: '👨‍🏫', photo: null as string | null | undefined },
-    { id: 4 as number | string, name: 'Zeynep Serim', branch: 'İngilizce', avatar: '👩‍🏫', photo: null as string | null | undefined }
-  ],
-  basarilar: [
-    { id: 1 as number | string, name: 'Zeynep Kaya', exam: 'YKS 2024', result: 'Türkiye 145.si - Hacettepe Tıp', photo: null as string | null | undefined, year: '2024' },
-    { id: 2 as number | string, name: 'Kerem Yılmaz', exam: 'LGS 2024', result: '0.1% Dilim - Galatasaray Lisesi', photo: null as string | null | undefined, year: '2024' },
-    { id: 3 as number | string, name: 'Aylin Şen', exam: 'YKS 2024', result: 'Türkiye 892.si - Boğaziçi Bilgisayar', photo: null as string | null | undefined, year: '2024' },
-    { id: 4 as number | string, name: 'Emre Aydın', exam: 'LGS 2024', result: '0.5% Dilim - Kabataş Lisesi', photo: null as string | null | undefined, year: '2024' }
-  ],
+  duyurular: [] as { id: number | string; title: string; date: string; content: string }[],
+  kampanyalar: [] as { id: number | string; name: string; discount: string; date: string; active: boolean }[],
+  medya: [] as { id: number | string; name: string; url: string; description: string; extraImages: {url: string; description: string}[] }[],
+  blog: [] as { id: number | string; title: string; author: string; date: string; content: string; photo?: string | null }[],
+  leads: [] as { id: number | string; name: string; phone: string; interest: string; status: string; date: string }[],
+  kadro: [] as { id: number | string; name: string; branch: string; avatar: string; photo?: string | null }[],
+  basarilar: [] as { id: number | string; name: string; exam: string; result: string; photo?: string | null; year: string }[],
   ayarlar: {
+    // GENEL & İLETİŞİM
+    logo: '/logo.svg',
+    adres: 'Cudi, 61. Cd. No:40, 73400 Silopi/Şırnak',
+    telefon: '0555 054 1230',
+    eposta: 'info@bireyselkurs.com',
+    googleMapsUrl: 'https://maps.google.com/maps?q=Cudi,+61.+Cd.+No:40,+73400+Silopi/Şırnak&t=&z=15&ie=UTF8&iwloc=&output=embed',
+
+    // ANASAYFA
     heroImages: [] as string[],
     heroArkaplanlar: [] as string[],
-    logo: '/logo.svg',
     heroUstBaslik: 'SİLOPİ BİREYSEL KURS MERKEZİ',
     heroAnaBaslik: 'Geleceğinizi Şansa Bırakmayın.',
     heroAciklama: '25 yıllık eğitim tecrübemizle Silopi\'de YKS, LGS ve Yabancı Dil eğitiminde yeni bir sayfa açıyoruz. Hedefi yüksek olanların doğru adresi.',
@@ -77,7 +53,27 @@ const defaultData = {
       { id: 4, title: 'Teknolojik Sınıflar', value: '4K Projeksiyon', icon: '📽️' },
       { id: 5, title: 'Soru Çözüm Ofisi', value: '7/24 Erişim', icon: '✍️' },
       { id: 6, title: 'Kafeterya', value: 'Dinlenme Alanı', icon: '☕' }
-    ]
+    ],
+
+    // HAKKIMIZDA
+    hakkimizdaUstBaslik: 'BİZ KİMİZ?',
+    hakkimizdaAnaBaslik: 'Geleceğe Değer Katan\nBir Eğitim Yuvası',
+    hakkimizdaP1: 'Şırnak Silopi\'de yılların verdiği tecrübe ile eğitim sektöründe öncü olan Bireysel Kurs Merkezi, öğrencilerini sadece sınavlara değil, hayata hazırlayan bir kuruluştur.',
+    hakkimizdaP2: 'Alanında uzman, yenilikçi ve dinamik öğretmen kadromuzla, her öğrencinin bireysel farklılıklarını göz önünde bulundurarak onlara özel çalışma programları hazırlıyoruz. Çeyrek asırlık tecrübemizle, binlerce öğrencimizi hayallerindeki üniversite ve liselere ulaştırmanın gururunu yaşıyoruz.',
+    vizyonBaslik: 'Vizyonumuz',
+    vizyonAciklama: 'Bölgenin en prestijli ve en başarılı eğitim kurumu olmak, modern eğitim yaklaşımlarını kullanarak öğrencilerimizi Türkiye\'nin en iyi üniversitelerine ve liselerine yerleştirmek.',
+    misyonBaslik: 'Misyonumuz',
+    misyonAciklama: 'Atatürk ilke ve inkılaplarına bağlı, çağdaş, analitik düşünebilen, özgüveni yüksek, ahlaki değerlere sahip ve geleceği şekillendirecek başarılı bireyler yetiştirmek.',
+
+    // KURSLAR (EĞİTİM PROGRAMLARI)
+    lgsBaslik: 'LGS Hazırlık',
+    lgsAciklama: '8. Sınıf öğrencilerine özel, yeni nesil sorularla tam uyumlu LGS hazırlık programı.',
+    yksBaslik: 'YKS (TYT-AYT) Hazırlık',
+    yksAciklama: '12. Sınıf ve mezun öğrencilere yönelik, Türkiye\'nin en iyi üniversitelerini hedefleyen yoğun ve disiplinli sınav hazırlık programı.',
+    dilOkuluBaslik: 'Yabancı Dil Eğitimleri',
+    dilOkuluAciklama: 'YDT, YDS ve YÖKDİL sınavlarına hazırlıkta, reading ve vocabulary ağırlıklı özel stratejik eğitimler.',
+    araSinifBaslik: 'Ara Sınıf Takviye',
+    araSinifAciklama: '9, 10 ve 11. sınıflar için okul derslerine destek ve üniversite sınavına erken hazırlık programı.'
   }
 };
 
@@ -116,7 +112,7 @@ async function fetchFromFirebase<K extends keyof typeof defaultData>(key: K) {
     }
   } catch (error) {
     console.error(`❌ Error fetching ${key} from Firebase:`, error);
-    return defaultData[key];
+    return key === 'ayarlar' ? defaultData[key] : [];
   }
 }
 
@@ -182,14 +178,14 @@ export function useAppStore<K extends keyof typeof defaultData>(key: K) {
   const updateData = async (newData: typeof defaultData[K]) => {
     setData(newData);
     // Save to both Firebase and localStorage for offline access
-    localStorage.setItem('bireyselkurs_' + key as string, JSON.stringify(newData));
+    localStorage.setItem('bkm_v2_' + key as string, JSON.stringify(newData));
     await saveToFirebase(key, newData);
     window.dispatchEvent(new Event('store-updated-' + key as string));
   };
 
   useEffect(() => {
     const handleUpdate = () => {
-      const saved = localStorage.getItem('bireyselkurs_' + key as string);
+      const saved = localStorage.getItem('bkm_v2_' + key as string);
       if (saved) setData(JSON.parse(saved));
     };
     window.addEventListener('store-updated-' + key as string, handleUpdate);
